@@ -653,7 +653,7 @@
                             <span class="tech-pill">REST API</span>
                         </div>
                     </div>
-                    <a href="https://governance.jainamcgregor.com/projects/ai-grc-engine/" target="_blank" class="link-github">View GitHub Repository & Code →</a>
+                    <a href="https://governance.jainamcgregor.com/projects/ai-grc-engine/" target="_blank" class="link-github">Explore Interactive Demo →</a>
                 </div>
 
                 <div class="prototype-card">
@@ -912,6 +912,15 @@
                 document.getElementById('flow-auto').classList.add('active');
             }
         }
+    </script>
+
+    <footer class="mt-8 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        &copy; <span id="copyrightYear"></span> J. McGregor All rights reserved.
+    </footer>
+
+    <script>
+        // Automatically set the current year for the copyright notice
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
