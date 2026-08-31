@@ -13,7 +13,7 @@ This application provides an instant baseline evaluation. It translates high-lev
 The evaluation engine uses a client-side decision matrix to poll simulated scopes and assign compliance statuses:
 
 1. **Posture Score Calculation**
-   The simulator evaluates four core infrastructure controls (Cloudflare WAF, IdP MFA, IAM Least Privilege, and Database Encryption). The posture score is calculated dynamically as a percentage of active controls (`(Active Controls / 4) * 100`).
+   The simulator evaluates four core infrastructure controls (Cloudflare WAF, IdP MFA, IAM Least Privilege, and Database Encryption). The posture score is calculated dynamically as a percentage of active controls ((Active Controls / 4) * 100).
 
 2. **Status Determination**
    * **PASS:** Triggered when all 100% of selected infrastructure controls are verified active and operational.
