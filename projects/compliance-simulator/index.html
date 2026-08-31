@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Compliance & Audit Readiness Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="h-3 w-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span class="font-semibold tracking-wide text-lg text-slate-200">ComplianceEngine Core</span>
+            </div>
+            <div class="flex items-center space-x-2 text-xs bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 px-3 py-1.5 rounded-full font-mono">
+                SOC 2 Type II & ISO 27001 Framework
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Panel: Control Toggles & Inputs -->
+        <section class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col justify-between">
+            <div>
+                <h1 class="text-xl font-bold mb-1 text-slate-100">Controls Monitoring Setup</h1>
+                <p class="text-slate-400 text-sm mb-6">Select active telemetry scopes and policy baselines to evaluate automated evidence collection.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Target Framework</label>
+                        <select id="frameworkSelect" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
+                            <option value="soc2">SOC 2 Trust Services Criteria (2017)</option>
+                            <option value="iso27001">ISO/IEC 27001:2022 Controls</option>
+                            <option value="combined">Combined Enterprise Baseline</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-2">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Simulated Infrastructure Scope</label>
+                        <div class="space-y-2.5">
+                            <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
+                                <input type="checkbox" id="checkCloudflare" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <span>Cloudflare Edge Access Logs & WAF</span>
+                            </label>
+                            <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
+                                <input type="checkbox" id="checkMfa" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <span>Identity Provider (Okta/Entra) MFA Enforcements</span>
+                            </label>
+                            <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
+                                <input type="checkbox" id="checkIam" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <span>IAM Least Privilege & Role Reviews</span>
+                            </label>
+                            <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
+                                <input type="checkbox" id="checkEncryption" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <span>Database Encryption at Rest (AES-256)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-800">
+                <button onclick="runAuditSimulation()" id="runBtn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-4 rounded-lg transition shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <span>Run Automated Telemetry Audit</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Panel: Live Output & Ledger -->
+        <section class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col justify-between">
+            <div id="outputContainer" class="flex flex-col h-full">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400">Execution Stream & Audit Ledger</h2>
+                    <span id="statusBadge" class="text-xs px-2.5 py-1 rounded-md font-mono bg-slate-800 text-slate-400">Idle</span>
+                </div>
+
+                <div id="terminalScreen" class="bg-slate-950 border border-slate-800 rounded-lg p-4 font-mono text-xs text-slate-300 h-72 overflow-y-auto flex flex-col justify-center items-center text-center">
+                    <svg class="w-10 h-10 text-slate-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <p class="text-slate-400">Awaiting audit execution. Click the run button to poll simulated REST endpoints and generate cryptographic ledgers.</p>
+                </div>
+
+                <div id="actionToolbar" class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center opacity-50 pointer-events-none transition-opacity">
+                    <div class="text-xs text-slate-400">Cryptographic Hash: <span id="hashDisplay" class="font-mono text-indigo-400">---</span></div>
+                    <button onclick="downloadLedger()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-2 rounded-lg font-medium transition flex items-center space-x-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <span>Download Audit JSON</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/30 text-center py-4 text-xs text-slate-500">
+        Client-Side Controls Monitoring (CCM) Simulator &bull; Zero External Transmission
+    </footer>
+
+    <!-- Simulation Script -->
+    <script>
+        let lastLedgerData = null;
+
+        async function runAuditSimulation() {
+            const terminal = document.getElementById('terminalScreen');
+            const statusBadge = document.getElementById('statusBadge');
+            const toolbar = document.getElementById('actionToolbar');
+            const runBtn = document.getElementById('runBtn');
+            const hashDisplay = document.getElementById('hashDisplay');
+
+            runBtn.disabled = true;
+            terminal.className = "bg-slate-950 border border-slate-800 rounded-lg p-4 font-mono text-xs text-slate-300 h-72 overflow-y-auto text-left justify-start items-start";
+            statusBadge.className = "text-xs px-2.5 py-1 rounded-md font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse";
+            statusBadge.innerText = "Executing Poll...";
+
+            const steps = [
+                "[INFO] Initializing client-side REST polling workers...",
+                "[CONNECT] Querying simulated Cloudflare Edge WAF endpoints...",
+                "[VERIFY] Checking Identity Provider MFA coverage statistics...",
+                "[AUDIT] Scanning IAM permission boundaries for privilege escalations...",
+                "[CRYPTO] Generating SHA-256 payload ledger and sealing signature...",
+                "[SUCCESS] Compliance readiness state verified. Posture: 98.4% Compliant."
+            ];
+
+            let htmlContent = "";
+            for (let i = 0; i < steps.length; i++) {
+                await new Promise(r => setTimeout(r, 400));
+                htmlContent += `<div class="mb-1.5 text-emerald-400">${steps[i]}</div>`;
+                terminal.innerHTML = htmlContent;
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+
+            const mockPayload = {
+                timestamp: new Date().toISOString(),
+                framework: document.getElementById('frameworkSelect').value,
+                controls_checked: {
+                    cloudflare: document.getElementById('checkCloudflare').checked,
+                    mfa: document.getElementById('checkMfa').checked,
+                    iam: document.getElementById('checkIam').checked,
+                    encryption: document.getElementById('checkEncryption').checked
+                },
+                posture_score: "98.4%",
+                status: "PASS"
+            };
+
+            lastLedgerData = mockPayload;
+            
+            // Simple mock hash generation
+            const str = JSON.stringify(mockPayload);
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            const hexHash = "e3b0c442" + Math.abs(hash).toString(16) + "a9f8";
+            hashDisplay.innerText = hexHash.substring(0, 16) + "...";
+
+            statusBadge.className = "text-xs px-2.5 py-1 rounded-md font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            statusBadge.innerText = "Audit Passed";
+            toolbar.style.opacity = "1";
+            toolbar.style.pointerEvents = "auto";
+            runBtn.disabled = false;
+        }
+
+        function downloadLedger() {
+            if (!lastLedgerData) return;
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(lastLedgerData, null, 4));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "evidence_log.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+    </script>
+</body>
+</html>
