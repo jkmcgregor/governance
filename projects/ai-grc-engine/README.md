@@ -45,3 +45,27 @@ Based on the assigned risk tier, the tool maps required governance actions to th
 2. Open index.html in any browser.
 3. Complete the form parameters on the left and click Execute Automated Risk Tiering.
 4. Review the generated gap analysis or export the assessment summary for documentation.
+
+---
+
+## User Guide & Input Requirements
+
+To generate an automated risk evaluation and baseline safeguard mapping, the tool requires six key inputs:
+
+* **System Name:** The internal identifier or official product name of the AI application (e.g., Enterprise CV Screener, SupportBot Gen3).
+* **Business Department:** The organizational unit responsible for operating or owning the model (e.g., Human Resources, Customer Experience, IT Operations).
+* **System Domain / Use Case:** The intended deployment environment. This selection directly determines the statutory EU AI Act risk tier (e.g., Employment/HR triggers High Risk, Social Scoring triggers Prohibited/Unacceptable Risk).
+* **Model Architecture:** The underlying model type (e.g., Predictive Analytics, Generative AI / LLM, Rule-Based Expert System).
+* **Data Sensitivity Level:** The highest classification level of data processed by the system (e.g., Public, Internal Operational, PII/PHI).
+* **Human-in-the-Loop (HITL) Status:** Indicates whether qualified human oversight approves outputs before execution or if the system runs fully autonomously.
+
+---
+
+## Operating the Engine
+
+1. Select or input the six metadata fields in the **Model Metadata Audit Form**.
+2. Click **Execute Automated Risk Tiering**.
+3. Review the generated **Automated Gap Analysis** and **NIST AI RMF 1.0 Requirements** panels on the right.
+4. Export the final audit report using the top-right control icons:
+   * **Document Icon:** Downloads a clean, formatted PDF assessment report suitable for executives, legal counsel, or external auditors.
+   * **Code Icon (`</>`):** Downloads the raw structured JSON assessment payload for database ingestion or GRC software integration.
