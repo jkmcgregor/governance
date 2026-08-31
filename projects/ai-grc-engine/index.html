@@ -4,66 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Risk Tiering & Governance Engine</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2pdf.js CDN for client-side PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
 
-    <!-- Header Navigation -->
     <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></div>
             <h1 class="text-lg font-bold tracking-wide text-slate-100">AI Risk Tiering & Governance Engine</h1>
         </div>
-        <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded border border-slate-700">
-            EU AI Act & NIST AI RMF 1.0
-        </span>
+        
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleHelpModal()" class="text-xs text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>How to Use</span>
+            </button>
+
+            <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded border border-slate-700 hidden sm:inline-block">
+                EU AI Act & NIST AI RMF 1.0
+            </span>
+        </div>
     </header>
 
-    <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Input Form Panel -->
         <section class="lg:col-span-5 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm space-y-5">
             <div>
-                <h2 class="text-base font-semibold text-slate-200">System Intake Parameters</h2>
-                <p class="text-xs text-slate-400 mt-1">Configure model parameters to evaluate statutory risk and governance controls.</p>
+                <h2 class="text-base font-semibold text-slate-200">Model Metadata Audit Form</h2>
+                <p class="text-xs text-slate-400 mt-1">Configure complete system telemetry to evaluate statutory risk and governance controls.</p>
             </div>
 
             <form id="riskForm" class="space-y-4" onsubmit="event.preventDefault(); evaluateRisk();">
                 <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">System / Application Name</label>
-                    <input type="text" id="sysName" placeholder="e.g., Enterprise Resume Parser AI" 
+                    <label class="block text-xs font-medium text-slate-300 mb-1">System Name</label>
+                    <input type="text" id="sysName" placeholder="e.g., CV-Screen-Pro" 
                         class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Deployment Domain / Use Case</label>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Business Department</label>
+                    <input type="text" id="deptName" placeholder="e.g., Human Resources" 
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">System Domain / Use Case</label>
                     <select id="domainSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="minimal">General Operations / IT Automation</option>
-                        <option value="transparency">Customer Support Chatbot / Content Generation</option>
-                        <option value="employment">Employment, Recruitment & HR Assessment</option>
-                        <option value="education">Education & Vocational Evaluation</option>
-                        <option value="critical_infra">Critical Infrastructure Management</option>
-                        <option value="prohibited">Social Scoring or Biometric Categorization</option>
+                        <option value="" disabled selected>Select Primary Domain...</option>
+                        <option value="internal_ops">Internal IT Operations & Logging</option>
+                        <option value="customer_service">Customer Service / Chatbots</option>
+                        <option value="employment">Employment / HR / Education</option>
+                        <option value="critical_infra">Critical Infrastructure / Medical</option>
+                        <option value="social_scoring">Social Scoring / Subliminal Manipulation</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Model Type</label>
+                    <select id="modelType" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                        <option value="" disabled selected>Select Architecture...</option>
+                        <option value="rule_based">Rule-Based Expert System</option>
+                        <option value="predictive">Predictive Analytics / Classification</option>
+                        <option value="gen_ai">Generative AI / LLM / Deepfake</option>
                     </select>
                 </div>
 
                 <div>
                     <label class="block text-xs font-medium text-slate-300 mb-1">Data Sensitivity Level</label>
                     <select id="dataSensitivity" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="public">Public / Anonymized Data</option>
-                        <option value="internal">Internal Operational Data</option>
-                        <option value="pii">Personally Identifiable Information (PII)</option>
-                        <option value="sensitive">High-Risk / Special Category Data</option>
+                        <option value="public">Public / Open Source Data</option>
+                        <option value="confidential">Confidential / Proprietary</option>
+                        <option value="restricted">Highly Restricted / PII / PHI</option>
                     </select>
                 </div>
 
-                <div class="flex items-center space-x-3 pt-2">
-                    <input type="checkbox" id="hitlCheck" checked class="h-4 w-4 rounded border-slate-700 bg-slate-900 text-indigo-600 focus:ring-indigo-500">
-                    <label for="hitlCheck" class="text-xs font-medium text-slate-300">Human-in-the-Loop (HITL) Oversight Enabled</label>
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Human-in-the-Loop (HITL) Status</label>
+                    <select id="hitlStatus" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                        <option value="no">No Human Oversight (Fully Autonomous)</option>
+                        <option value="yes">Mandatory Human Review before Action</option>
+                    </select>
                 </div>
 
                 <button type="submit" 
@@ -73,19 +96,15 @@
             </form>
         </section>
 
-        <!-- Output Evaluation Panel -->
         <section class="lg:col-span-7 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between space-y-6">
             <div>
-                <!-- Panel Header & Export Actions -->
                 <div class="flex items-center justify-between border-b border-slate-700 pb-4">
                     <div>
-                        <h2 class="text-base font-semibold text-slate-200">Evaluation Dashboard</h2>
-                        <span id="metaSummary" class="text-xs font-mono text-slate-400">System: Unspecified | HITL: Yes</span>
+                        <h2 id="cardTitle" class="text-lg font-bold text-slate-100">Awaiting Model Metadata</h2>
+                        <span id="metaSummary" class="text-xs font-mono text-slate-400">Complete the audit form to generate the System Card.</span>
                     </div>
 
-                    <!-- Action Export Buttons -->
                     <div class="flex items-center space-x-2">
-                        <!-- PDF Download Button -->
                         <button id="exportPdfBtn" onclick="exportPDF()" title="Export Assessment as PDF" 
                             class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +112,6 @@
                             </svg>
                         </button>
 
-                        <!-- JSON Export Button -->
                         <button id="exportJsonBtn" onclick="exportJSON()" title="Export Assessment as JSON" 
                             class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition font-mono text-xs">
                             &lt;/&gt;
@@ -101,37 +119,39 @@
                     </div>
                 </div>
 
-                <!-- Assessment Content Display -->
                 <div id="assessmentOutput" class="mt-5 space-y-5">
                     
-                    <!-- Risk Tier Badge Banner -->
-                    <div id="tierBanner" class="p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-between">
+                    <div id="emptyState" class="py-20 text-center space-y-3">
+                        <svg class="w-12 h-12 mx-auto text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
                         <div>
-                            <span class="text-xs uppercase font-mono tracking-wider text-emerald-400">Assigned EU AI Act Tier</span>
-                            <h3 id="tierTitle" class="text-lg font-bold mt-0.5">Minimal Risk</h3>
-                        </div>
-                        <span id="tierBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-500/30">
-                            Article 6 Exempt
-                        </span>
-                    </div>
-
-                    <!-- EU AI Act Requirements -->
-                    <div>
-                        <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">EU AI Act Mandatory Controls</h4>
-                        <div id="euControls" class="bg-slate-900/60 rounded-lg p-4 border border-slate-700/50 text-xs text-slate-300 space-y-2">
-                            <p>• Standard data protection measures apply (GDPR compliance).</p>
-                            <p>• Voluntary adherence to industry codes of conduct recommended.</p>
+                            <h3 class="text-sm font-semibold text-slate-300">Awaiting Model Metadata</h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Complete the audit form to generate the System Card.</p>
                         </div>
                     </div>
 
-                    <!-- NIST AI RMF Mapping -->
-                    <div>
-                        <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">NIST AI RMF 1.0 Action Plan</h4>
-                        <div id="nistControls" class="bg-slate-900/60 rounded-lg p-4 border border-slate-700/50 text-xs text-slate-300 space-y-2">
-                            <p><strong class="text-indigo-400">GOVERN:</strong> Maintain baseline inventory of operational software assets.</p>
-                            <p><strong class="text-indigo-400">MAP:</strong> Ensure input datasets undergo standard privacy checks.</p>
-                            <p><strong class="text-indigo-400">MEASURE:</strong> Perform routine functional software testing prior to deployment.</p>
-                            <p><strong class="text-indigo-400">MANAGE:</strong> Establish regular maintenance schedules and feedback logging.</p>
+                    <div id="resultsContainer" class="space-y-5 hidden">
+                        <div id="tierBanner" class="p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-between">
+                            <div>
+                                <span id="tierDescText" class="text-xs uppercase font-mono tracking-wider text-emerald-400">Minimal Risk</span>
+                                <p id="tierBannerSub" class="text-xs mt-0.5 text-slate-300">No mandatory EU AI Act obligations beyond standard data privacy.</p>
+                            </div>
+                            <span id="tierBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-500/30">
+                                Minimal Risk
+                            </span>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">Automated Gap Analysis</h4>
+                            <div id="gapAnalysisList" class="space-y-2">
+                                </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">NIST AI RMF 1.0 Requirements</h4>
+                            <div id="nistGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                </div>
                         </div>
                     </div>
 
@@ -146,131 +166,206 @@
 
     </main>
 
-    <!-- Client Logic & PDF Generator Script -->
+    <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-slate-100">Tool User Guide & Instructions</h3>
+                <button onclick="toggleHelpModal()" class="text-slate-400 hover:text-white text-sm font-mono px-2 py-1 rounded bg-slate-800">✕</button>
+            </div>
+            
+            <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+                <p><strong>Overview:</strong> This utility streamlines preliminary risk assessments for AI systems by evaluating telemetry inputs against the EU AI Act risk tiers and mapping them to NIST AI RMF 1.0 controls.</p>
+                
+                <p class="font-semibold text-slate-200 mt-2">Required Input Parameters:</p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li><strong>System Name & Department:</strong> Internal product identifiers and owning operational groups.</li>
+                    <li><strong>Deployment Domain:</strong> Determines the statutory EU AI Act risk tier (e.g., employment triggers High Risk, social scoring triggers Unacceptable Risk).</li>
+                    <li><strong>Model Type:</strong> Technical architecture classification (Rule-based, Predictive, or GenAI).</li>
+                    <li><strong>Data Sensitivity Level:</strong> Evaluates privacy boundaries (Public, Confidential, or Restricted PII/PHI).</li>
+                    <li><strong>Human-in-the-Loop (HITL):</strong> Indicates whether active human review checkpoints govern execution.</li>
+                </ul>
+
+                <p class="font-semibold text-slate-200 mt-2">Export Options:</p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li><strong>PDF Document Icon:</strong> Generates and downloads a clean executive report for legal or compliance review.</li>
+                    <li><strong>JSON Code Icon (&lt;/&gt;):</strong> Exports raw structured data for database ingestion or GRC platform tracking.</li>
+                </ul>
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 flex justify-end">
+                <button onclick="toggleHelpModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                    Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // State store for active assessment data
-        let currentAssessment = {
-            systemName: "Unspecified System",
-            domain: "Minimal Risk Operations",
-            hitl: true,
-            tier: "Minimal Risk",
-            euControls: [
-                "Standard data protection measures apply (GDPR compliance).",
-                "Voluntary adherence to industry codes of conduct recommended."
-            ],
-            nistControls: {
-                govern: "Maintain baseline inventory of operational software assets.",
-                map: "Ensure input datasets undergo standard privacy checks.",
-                measure: "Perform routine functional software testing prior to deployment.",
-                manage: "Establish regular maintenance schedules and feedback logging."
-            }
-        };
+        let currentAssessment = null;
+
+        function toggleHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.classList.toggle('hidden');
+        }
 
         function evaluateRisk() {
-            const sysName = document.getElementById('sysName').value.trim() || 'Unspecified System';
+            const sysName = document.getElementById('sysName').value.trim();
+            const deptName = document.getElementById('deptName').value.trim();
             const domain = document.getElementById('domainSelect').value;
-            const hitl = document.getElementById('hitlCheck').checked;
+            const modelType = document.getElementById('modelType').value;
+            const dataSensitivity = document.getElementById('dataSensitivity').value;
+            const hitl = document.getElementById('hitlStatus').value;
+
+            if (!sysName || !deptName || !domain || !modelType) {
+                alert('Please complete all required audit form fields.');
+                return;
+            }
 
             let tier = "Minimal Risk";
-            let euControls = [];
-            let nistControls = {};
+            let bannerBg = "bg-emerald-950/60 border-emerald-500/40 text-emerald-300";
+            let badgeBg = "bg-emerald-500/20 border-emerald-500/30 text-emerald-300";
+            let bannerSub = "No mandatory EU AI Act obligations beyond standard data privacy (GDPR) and corporate AI usage policies.";
+            let gapList = [];
+            let nistData = {};
 
-            if (domain === "prohibited") {
+            if (domain === "social_scoring") {
                 tier = "Unacceptable Risk";
-                euControls = [
-                    "PROHIBITED USE CASE under EU AI Act Article 5.",
-                    "Immediate decommissioning or architecture scope revision required.",
-                    "Deployment within EU jurisdiction carries severe regulatory penalties."
+                bannerBg = "bg-red-950/60 border-red-500/40 text-red-300";
+                badgeBg = "bg-red-500/20 border-red-500/30 text-red-300";
+                bannerSub = "PROHIBITED SYSTEM: This system architecture poses an unacceptable risk under EU AI Act guidelines and must be blocked from deployment.";
+                gapList = [
+                    { type: 'critical', text: 'CRITICAL VIOLATION: System falls under prohibited AI practices (EU AI Act Title II).' },
+                    { type: 'critical', text: 'ACTION REQUIRED: Immediate decommissioning sequence must be initiated.' }
                 ];
-                nistControls = {
-                    govern: "Execute immediate system halt and governance review protocol.",
-                    map: "Document prohibited risk factors and inform legal compliance team.",
-                    measure: "Conduct architectural audit to identify alternate non-prohibited methods.",
-                    manage: "Purge active operational deployments and revoke access credentials."
+                nistData = {
+                    govern: { title: 'GOVERN', text: 'Activate legal hold and decommission policies.', bg: 'bg-indigo-950/60 border-indigo-500/40 text-indigo-300' },
+                    manage: { title: 'MANAGE', text: 'Isolate system from production networks.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' }
                 };
-            } else if (["employment", "education", "critical_infra"].includes(domain)) {
+            } else if (domain === "employment" || domain === "critical_infra") {
                 tier = "High Risk";
-                euControls = [
-                    "Mandatory Conformity Assessment (Article 43) prior to market entry.",
-                    "Establish continuous Risk Management System throughout lifecycle (Article 9).",
-                    "Detailed Technical Documentation & Automated Logging required (Articles 11 & 12).",
-                    "Guaranteed Human Oversight mechanism required (Article 14)."
+                bannerBg = "bg-amber-950/60 border-amber-500/40 text-amber-300";
+                badgeBg = "bg-amber-500/20 border-amber-500/30 text-amber-300";
+                bannerSub = "HIGH RISK: Mandatory compliance requirements apply. Strict conformity assessments and fundamental rights impact assessments required.";
+                
+                gapList = [
+                    { type: 'normal', text: 'Mandatory conformity assessment required prior to deployment (Art 43).' },
+                    { type: 'normal', text: 'Implement strict data governance and bias mitigation (Art 10).' },
+                    { type: 'normal', text: 'Establish automated continuous logging (Art 12).' }
                 ];
-                nistControls = {
-                    govern: "Form cross-functional AI oversight committee and establish strict accountability policies.",
-                    map: "Complete comprehensive context impact assessment and third-party risk audit.",
-                    measure: "Execute pre-deployment bias, accuracy, and fairness evaluations.",
-                    manage: "Implement post-market monitoring, drift detection, and incident response plans."
+
+                if (hitl === "no") {
+                    gapList.push({ type: 'gap', text: 'GAP: High-Risk systems mandate Human-in-the-Loop oversight (Art 14).' });
+                }
+
+                nistData = {
+                    govern: { title: 'GOVERN', text: 'Establish cross-functional AI oversight committee.', bg: 'bg-indigo-950/60 border-indigo-500/40 text-indigo-300' },
+                    map: { title: 'MAP', text: 'Document context, dependencies, and potential adverse impacts.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' },
+                    measure: { title: 'MEASURE', text: 'Rigorous algorithmic bias and robustness testing.', bg: 'bg-amber-950/60 border-amber-500/40 text-amber-300' },
+                    manage: { title: 'MANAGE', text: 'Continuous post-market monitoring and incident response.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' }
                 };
-            } else if (domain === "transparency") {
+            } else if (domain === "customer_service" || modelType === "gen_ai") {
                 tier = "Limited Risk";
-                euControls = [
-                    "Transparency obligations under Article 52 apply.",
-                    "Users must be explicitly informed that they are interacting with an AI system.",
-                    "Synthetic audio, image, or text output must be marked in a machine-readable format."
+                bannerBg = "bg-blue-950/60 border-blue-500/40 text-blue-300";
+                badgeBg = "bg-blue-500/20 border-blue-500/30 text-blue-300";
+                bannerSub = "LIMITED RISK: Subject to specific transparency obligations. End-users must be informed they are interacting with an AI system.";
+
+                gapList = [
+                    { type: 'normal', text: 'Transparency requirement: Users must be notified they are interacting with AI (Art 52).' },
+                    { type: 'normal', text: 'Generative AI requires watermarking/labeling of outputs.' }
                 ];
-                nistControls = {
-                    govern: "Publish clear consumer transparency disclosures and operational terms.",
-                    map: "Track user perception risks and potential hallucination vulnerabilities.",
-                    measure: "Test output accuracy and watermark/labeling consistency.",
-                    manage: "Monitor disclosure compliance and handle consumer misrepresentation inquiries."
+
+                if (dataSensitivity === "restricted" || dataSensitivity === "confidential") {
+                    gapList.push({ type: 'gap', text: 'GAP: Ensure LLM/GenAI inputs are scrubbed of PII/Confidential data.' });
+                }
+
+                nistData = {
+                    govern: { title: 'GOVERN', text: 'Define transparency and disclosure policies.', bg: 'bg-indigo-950/60 border-indigo-500/40 text-indigo-300' },
+                    map: { title: 'MAP', text: 'Identify third-party model dependencies and terms of service.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' },
+                    manage: { title: 'MANAGE', text: 'Monitor for model drift and user misuse.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' }
                 };
             } else {
                 tier = "Minimal Risk";
-                euControls = [
-                    "Standard data protection measures apply (GDPR compliance).",
-                    "Voluntary adherence to industry codes of conduct recommended."
+                bannerBg = "bg-emerald-950/60 border-emerald-500/40 text-emerald-300";
+                badgeBg = "bg-emerald-500/20 border-emerald-500/30 text-emerald-300";
+                bannerSub = "MINIMAL RISK: No mandatory EU AI Act obligations beyond standard data privacy (GDPR) and corporate AI usage policies.";
+
+                gapList = [
+                    { type: 'normal', text: 'No explicit regulatory barriers under EU AI Act. Voluntary codes of conduct recommended.' }
                 ];
-                nistControls = {
-                    govern: "Maintain baseline inventory of operational software assets.",
-                    map: "Ensure input datasets undergo standard privacy checks.",
-                    measure: "Perform routine functional software testing prior to deployment.",
-                    manage: "Establish regular maintenance schedules and feedback logging."
+
+                nistData = {
+                    govern: { title: 'GOVERN', text: 'Maintain AI inventory standard practices.', bg: 'bg-indigo-950/60 border-indigo-500/40 text-indigo-300' },
+                    map: { title: 'MAP', text: 'Basic documentation of business value and data sources.', bg: 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300' }
                 };
             }
 
-            // Update Global State
-            currentAssessment = { systemName: sysName, domain, hitl, tier, euControls, nistControls };
+            // Store state
+            currentAssessment = {
+                systemName: sysName,
+                department: deptName,
+                domain,
+                modelType,
+                dataSensitivity,
+                hitl,
+                tier,
+                gapList,
+                nistData
+            };
 
-            // Update UI Elements
-            document.getElementById('metaSummary').innerText = `System: ${sysName} | HITL: ${hitl ? 'Yes' : 'No'}`;
-            document.getElementById('tierTitle').innerText = tier;
-            
-            const tierBanner = document.getElementById('tierBanner');
-            const tierBadge = document.getElementById('tierBadge');
+            // Update UI Header & Meta
+            document.getElementById('cardTitle').innerText = sysName;
+            document.getElementById('metaSummary').innerText = `Dept: ${deptName} | Domain: ${domain} | Type: ${modelType} | Data: ${dataSensitivity} | HITL: ${hitl}`;
 
-            if (tier === "Unacceptable Risk") {
-                tierBanner.className = "p-4 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 flex items-center justify-between";
-                tierBadge.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/20 border border-red-500/30";
-                tierBadge.innerText = "Article 5 Prohibited";
-            } else if (tier === "High Risk") {
-                tierBanner.className = "p-4 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300 flex items-center justify-between";
-                tierBadge.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 border border-amber-500/30";
-                tierBadge.innerText = "Annex III Mandatory Safeguards";
-            } else if (tier === "Limited Risk") {
-                tierBanner.className = "p-4 rounded-lg bg-blue-950/60 border border-blue-500/40 text-blue-300 flex items-center justify-between";
-                tierBadge.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/20 border border-blue-500/30";
-                tierBadge.innerText = "Article 52 Disclosures";
-            } else {
-                tierBanner.className = "p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-between";
-                tierBadge.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-500/30";
-                tierBadge.innerText = "Article 6 Exempt";
-            }
+            // Switch views
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
 
-            // Render EU Controls
-            document.getElementById('euControls').innerHTML = euControls.map(c => `<p>• ${c}</p>`).join('');
+            // Render Banner
+            const banner = document.getElementById('tierBanner');
+            banner.className = `p-4 rounded-lg border flex items-center justify-between ${bannerBg}`;
+            document.getElementById('tierDescText').innerText = tier.toUpperCase();
+            document.getElementById('tierBannerSub').innerText = bannerSub;
+            const badge = document.getElementById('tierBadge');
+            badge.className = `px-2.5 py-1 rounded-full text-xs font-semibold border ${badgeBg}`;
+            badge.innerText = tier;
 
-            // Render NIST Controls
-            document.getElementById('nistControls').innerHTML = `
-                <p><strong class="text-indigo-400">GOVERN:</strong> ${nistControls.govern}</p>
-                <p><strong class="text-indigo-400">MAP:</strong> ${nistControls.map}</p>
-                <p><strong class="text-indigo-400">MEASURE:</strong> ${nistControls.measure}</p>
-                <p><strong class="text-indigo-400">MANAGE:</strong> ${nistControls.manage}</p>
-            `;
+            // Render Gap Analysis
+            const gapContainer = document.getElementById('gapAnalysisList');
+            gapContainer.innerHTML = gapList.map(g => {
+                if (g.type === 'gap') {
+                    return `<div class="p-3 rounded-lg bg-red-950/40 border border-red-500/30 text-xs text-red-300 flex items-center space-x-2">
+                        <span class="font-mono font-bold">✕</span>
+                        <span>${g.text}</span>
+                    </div>`;
+                } else if (g.type === 'critical') {
+                    return `<div class="p-3 rounded-lg bg-red-950/60 border border-red-500/50 text-xs text-red-200 flex items-center space-x-2">
+                        <span class="font-mono font-bold">⚠</span>
+                        <span>${g.text}</span>
+                    </div>`;
+                } else {
+                    return `<div class="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50 text-xs text-slate-300 flex items-center space-x-2">
+                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span>${g.text}</span>
+                    </div>`;
+                }
+            }).join('');
+
+            // Render NIST Grid
+            const nistContainer = document.getElementById('nistGrid');
+            nistContainer.innerHTML = Object.values(nistData).map(n => `
+                <div class="p-3 rounded-lg border ${n.bg} text-xs space-y-1">
+                    <h5 class="font-bold font-mono tracking-wider">${n.title}</h5>
+                    <p class="text-slate-200">${n.text}</p>
+                </div>
+            `).join('');
         }
 
-        // Generate and download a formatted PDF report
         function exportPDF() {
+            if (!currentAssessment) {
+                alert('Please execute an automated risk assessment first.');
+                return;
+            }
+
             const container = document.createElement('div');
             container.style.padding = '30px';
             container.style.fontFamily = 'Arial, sans-serif';
@@ -292,8 +387,24 @@
                             <td>${currentAssessment.systemName}</td>
                         </tr>
                         <tr>
+                            <td style="padding: 3px 0; font-weight: bold;">Business Department:</td>
+                            <td>${currentAssessment.department}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 3px 0; font-weight: bold;">Deployment Domain:</td>
+                            <td>${currentAssessment.domain}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 3px 0; font-weight: bold;">Model Architecture:</td>
+                            <td>${currentAssessment.modelType}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 3px 0; font-weight: bold;">Data Sensitivity:</td>
+                            <td>${currentAssessment.dataSensitivity}</td>
+                        </tr>
+                        <tr>
                             <td style="padding: 3px 0; font-weight: bold;">Human-in-the-Loop Oversight:</td>
-                            <td>${currentAssessment.hitl ? 'Enabled' : 'Disabled'}</td>
+                            <td>${currentAssessment.hitl}</td>
                         </tr>
                         <tr>
                             <td style="padding: 3px 0; font-weight: bold;">EU AI Act Classification:</td>
@@ -304,22 +415,19 @@
 
                 <div style="margin-bottom: 20px;">
                     <h3 style="color: #0c1f63; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; font-size: 14px;">
-                        Mandatory Statutory Controls (EU AI Act)
+                        Automated Gap Analysis & Mandatory Controls
                     </h3>
                     <ul style="font-size: 12px; line-height: 1.6; color: #334155; padding-left: 18px; margin-top: 8px;">
-                        ${currentAssessment.euControls.map(ctrl => `<li>${ctrl}</li>`).join('')}
+                        ${currentAssessment.gapList.map(g => `<li>${g.text}</li>`).join('')}
                     </ul>
                 </div>
 
                 <div style="margin-bottom: 20px;">
                     <h3 style="color: #0c1f63; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; font-size: 14px;">
-                        NIST AI RMF 1.0 Safeguard Mapping
+                        NIST AI RMF 1.0 Requirements
                     </h3>
                     <div style="font-size: 12px; line-height: 1.6; color: #334155; margin-top: 8px;">
-                        <p style="margin: 4px 0;"><strong>GOVERN:</strong> ${currentAssessment.nistControls.govern}</p>
-                        <p style="margin: 4px 0;"><strong>MAP:</strong> ${currentAssessment.nistControls.map}</p>
-                        <p style="margin: 4px 0;"><strong>MEASURE:</strong> ${currentAssessment.nistControls.measure}</p>
-                        <p style="margin: 4px 0;"><strong>MANAGE:</strong> ${currentAssessment.nistControls.manage}</p>
+                        ${Object.values(currentAssessment.nistData).map(n => `<p style="margin: 4px 0;"><strong>${n.title}:</strong> ${n.text}</p>`).join('')}
                     </div>
                 </div>
 
@@ -339,8 +447,12 @@
             html2pdf().set(options).from(container).save();
         }
 
-        // Export current assessment state as a JSON file download
         function exportJSON() {
+            if (!currentAssessment) {
+                alert('Please execute an automated risk assessment first.');
+                return;
+            }
+
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentAssessment, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
@@ -349,6 +461,14 @@
             downloadAnchor.click();
             downloadAnchor.remove();
         }
+    </script>
+<footer class="mt-8 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        &copy; <span id="copyrightYear"></span> All rights reserved.
+    </footer>
+
+    <script>
+        // Automatically set the current year for the copyright notice
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
