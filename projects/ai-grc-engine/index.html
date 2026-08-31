@@ -7,164 +7,170 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased flex flex-col justify-between">
 
-    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></div>
-            <h1 class="text-lg font-bold tracking-wide text-slate-100">AI Risk Tiering & Governance Engine</h1>
-        </div>
-        
-        <div class="flex items-center space-x-3">
-            <button onclick="toggleHelpModal()" class="text-xs text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>How to Use</span>
-            </button>
-
-            <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded border border-slate-700 hidden sm:inline-block">
-                EU AI Act & NIST AI RMF 1.0
-            </span>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <section class="lg:col-span-5 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm space-y-5">
-            <div>
-                <h2 class="text-base font-semibold text-slate-200">Model Metadata Audit Form</h2>
-                <p class="text-xs text-slate-400 mt-1">Configure complete system telemetry to evaluate statutory risk and governance controls.</p>
+    <div>
+        <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                <h1 class="text-lg font-bold tracking-wide text-slate-100">AI Risk Tiering & Governance Engine</h1>
             </div>
-
-            <form id="riskForm" class="space-y-4" onsubmit="event.preventDefault(); evaluateRisk();">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">System Name</label>
-                    <input type="text" id="sysName" placeholder="e.g., CV-Screen-Pro" 
-                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Business Department</label>
-                    <input type="text" id="deptName" placeholder="e.g., Human Resources" 
-                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">System Domain / Use Case</label>
-                    <select id="domainSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="" disabled selected>Select Primary Domain...</option>
-                        <option value="internal_ops">Internal IT Operations & Logging</option>
-                        <option value="customer_service">Customer Service / Chatbots</option>
-                        <option value="employment">Employment / HR / Education</option>
-                        <option value="critical_infra">Critical Infrastructure / Medical</option>
-                        <option value="social_scoring">Social Scoring / Subliminal Manipulation</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Model Type</label>
-                    <select id="modelType" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="" disabled selected>Select Architecture...</option>
-                        <option value="rule_based">Rule-Based Expert System</option>
-                        <option value="predictive">Predictive Analytics / Classification</option>
-                        <option value="gen_ai">Generative AI / LLM / Deepfake</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Data Sensitivity Level</label>
-                    <select id="dataSensitivity" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="public">Public / Open Source Data</option>
-                        <option value="confidential">Confidential / Proprietary</option>
-                        <option value="restricted">Highly Restricted / PII / PHI</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Human-in-the-Loop (HITL) Status</label>
-                    <select id="hitlStatus" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
-                        <option value="no">No Human Oversight (Fully Autonomous)</option>
-                        <option value="yes">Mandatory Human Review before Action</option>
-                    </select>
-                </div>
-
-                <button type="submit" 
-                    class="w-full mt-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm py-2.5 px-4 rounded-lg shadow-md hover:shadow-indigo-500/20 transition flex items-center justify-center space-x-2">
-                    <span>Execute Automated Risk Tiering</span>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleHelpModal()" class="text-xs text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>How to Use</span>
                 </button>
-            </form>
-        </section>
 
-        <section class="lg:col-span-7 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between space-y-6">
-            <div>
-                <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+                <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded border border-slate-700 hidden sm:inline-block">
+                    EU AI Act & NIST AI RMF 1.0
+                </span>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <section class="lg:col-span-5 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm space-y-5">
+                <div>
+                    <h2 class="text-base font-semibold text-slate-200">Model Metadata Audit Form</h2>
+                    <p class="text-xs text-slate-400 mt-1">Configure complete system telemetry to evaluate statutory risk and governance controls.</p>
+                </div>
+
+                <form id="riskForm" class="space-y-4" onsubmit="event.preventDefault(); evaluateRisk();">
                     <div>
-                        <h2 id="cardTitle" class="text-lg font-bold text-slate-100">Awaiting Model Metadata</h2>
-                        <span id="metaSummary" class="text-xs font-mono text-slate-400">Complete the audit form to generate the System Card.</span>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">System Name</label>
+                        <input type="text" id="sysName" placeholder="e.g., CV-Screen-Pro" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
                     </div>
 
-                    <div class="flex items-center space-x-2">
-                        <button id="exportPdfBtn" onclick="exportPDF()" title="Export Assessment as PDF" 
-                            class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Business Department</label>
+                        <input type="text" id="deptName" placeholder="e.g., Human Resources" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">System Domain / Use Case</label>
+                        <select id="domainSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                            <option value="" disabled selected>Select Primary Domain...</option>
+                            <option value="internal_ops">Internal IT Operations & Logging</option>
+                            <option value="customer_service">Customer Service / Chatbots</option>
+                            <option value="employment">Employment / HR / Education</option>
+                            <option value="critical_infra">Critical Infrastructure / Medical</option>
+                            <option value="social_scoring">Social Scoring / Subliminal Manipulation</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Model Type</label>
+                        <select id="modelType" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                            <option value="" disabled selected>Select Architecture...</option>
+                            <option value="rule_based">Rule-Based Expert System</option>
+                            <option value="predictive">Predictive Analytics / Classification</option>
+                            <option value="gen_ai">Generative AI / LLM / Deepfake</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Data Sensitivity Level</label>
+                        <select id="dataSensitivity" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                            <option value="public">Public / Open Source Data</option>
+                            <option value="confidential">Confidential / Proprietary</option>
+                            <option value="restricted">Highly Restricted / PII / PHI</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Human-in-the-Loop (HITL) Status</label>
+                        <select id="hitlStatus" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition">
+                            <option value="no">No Human Oversight (Fully Autonomous)</option>
+                            <option value="yes">Mandatory Human Review before Action</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full mt-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm py-2.5 px-4 rounded-lg shadow-md hover:shadow-indigo-500/20 transition flex items-center justify-center space-x-2">
+                        <span>Execute Automated Risk Tiering</span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="lg:col-span-7 bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between space-y-6">
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+                        <div>
+                            <h2 id="cardTitle" class="text-lg font-bold text-slate-100">Awaiting Model Metadata</h2>
+                            <span id="metaSummary" class="text-xs font-mono text-slate-400">Complete the audit form to generate the System Card.</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 shrink-0">
+                            <button id="exportPdfBtn" onclick="exportPDF()" title="Export Assessment as PDF" 
+                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </button>
+
+                            <button id="exportJsonBtn" onclick="exportJSON()" title="Export Assessment as JSON" 
+                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition font-mono text-xs">
+                                &lt;/&gt;
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="assessmentOutput" class="mt-5 space-y-5">
+                        
+                        <div id="emptyState" class="py-20 text-center space-y-3">
+                            <svg class="w-12 h-12 mx-auto text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
-                        </button>
-
-                        <button id="exportJsonBtn" onclick="exportJSON()" title="Export Assessment as JSON" 
-                            class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 hover:text-white transition font-mono text-xs">
-                            &lt;/&gt;
-                        </button>
-                    </div>
-                </div>
-
-                <div id="assessmentOutput" class="mt-5 space-y-5">
-                    
-                    <div id="emptyState" class="py-20 text-center space-y-3">
-                        <svg class="w-12 h-12 mx-auto text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <div>
-                            <h3 class="text-sm font-semibold text-slate-300">Awaiting Model Metadata</h3>
-                            <p class="text-xs text-slate-500 mt-0.5">Complete the audit form to generate the System Card.</p>
-                        </div>
-                    </div>
-
-                    <div id="resultsContainer" class="space-y-5 hidden">
-                        <div id="tierBanner" class="p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-between">
                             <div>
-                                <span id="tierDescText" class="text-xs uppercase font-mono tracking-wider text-emerald-400">Minimal Risk</span>
-                                <p id="tierBannerSub" class="text-xs mt-0.5 text-slate-300">No mandatory EU AI Act obligations beyond standard data privacy.</p>
+                                <h3 class="text-sm font-semibold text-slate-300">Awaiting Model Metadata</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Complete the audit form to generate the System Card.</p>
                             </div>
-                            <span id="tierBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-500/30">
-                                Minimal Risk
-                            </span>
                         </div>
 
-                        <div>
-                            <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">Automated Gap Analysis</h4>
-                            <div id="gapAnalysisList" class="space-y-2">
+                        <div id="resultsContainer" class="space-y-5 hidden">
+                            <div id="tierBanner" class="p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-between">
+                                <div>
+                                    <span id="tierDescText" class="text-xs uppercase font-mono tracking-wider text-emerald-400">Minimal Risk</span>
+                                    <p id="tierBannerSub" class="text-xs mt-0.5 text-slate-300">No mandatory EU AI Act obligations beyond standard data privacy.</p>
                                 </div>
+                                <span id="tierBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-500/30">
+                                    Minimal Risk
+                                </span>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">Automated Gap Analysis</h4>
+                                <div id="gapAnalysisList" class="space-y-2">
+                                    </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">NIST AI RMF 1.0 Requirements</h4>
+                                <div id="nistGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400 mb-2">NIST AI RMF 1.0 Requirements</h4>
-                            <div id="nistGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                </div>
-                        </div>
                     </div>
-
                 </div>
-            </div>
 
-            <div class="pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-500">
-                <span>Data Privacy: Local Client-Side Execution</span>
-                <span>Zero External Transmission</span>
-            </div>
-        </section>
+                <div class="pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-500">
+                    <span>Data Privacy: Local Client-Side Execution</span>
+                    <span>Zero External Transmission</span>
+                </div>
+            </section>
 
-    </main>
+        </main>
+    </div>
+
+    <footer class="mt-8 border-t border-slate-800 py-6 text-center text-xs text-slate-500 bg-slate-950/50">
+        &copy; <span id="copyrightYear"></span> All rights reserved.
+    </footer>
 
     <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
@@ -201,6 +207,9 @@
     </div>
 
     <script>
+        // Automatically set the current year for the copyright notice
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
         let currentAssessment = null;
 
         function toggleHelpModal() {
@@ -462,8 +471,9 @@
             downloadAnchor.remove();
         }
     </script>
+
 <footer class="mt-8 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        &copy; <span id="copyrightYear"></span> All rights reserved.
+        &copy; <span id="copyrightYear"></span> JAKSA Enterprises, LLC. All rights reserved.
     </footer>
 
     <script>
