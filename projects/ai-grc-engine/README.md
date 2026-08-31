@@ -8,7 +8,7 @@ A lightweight, browser-based utility designed to streamline preliminary risk ass
 
 Conducting initial risk intake for internal AI applications is often manual, repetitive, and fragmented across spreadsheets. Compliance leads and GRC teams need a fast, standardized way to triage incoming requests from engineering and product groups before committing resources to formal assessments.
 
-This application provides an instant baseline assessment. It translates high-level system parameters—such as intended domain, autonomy levels, and data sensitivity—into immediate, actionable regulatory gaps and framework mappings.
+This application provides an instant baseline assessment. It translates high-level system parameters, such as intended domain, autonomy levels, and data sensitivity, into immediate and actionable regulatory gaps and framework mappings.
 
 ---
 
@@ -17,10 +17,10 @@ This application provides an instant baseline assessment. It translates high-lev
 The evaluation engine uses a simple client-side decision matrix to classify tools and assign safeguards:
 
 ### 1. EU AI Act Classification
-* **Unacceptable Risk:** Flags prohibited use cases (e.g., social scoring or untargeted real-time biometrics in public spaces) and advises immediate decommissioning steps.
-* **High Risk:** Triggers for high-stakes deployment areas such as employment/recruitment, education, critical infrastructure, and medical evaluation. Highlights mandatory items like human oversight (Art. 14), continuous logging (Art. 12), and conformity assessments (Art. 43).
-* **Limited Risk:** Focuses on transparency obligations (Art. 52) for customer-facing bots, generative models, and output disclosures.
-* **Minimal Risk:** Identifies low-stakes operational software (e.g., internal text parsers or IT rule engines) requiring only baseline data privacy compliance.
+* **Unacceptable Risk:** Flags prohibited use cases, such as social scoring or untargeted real-time biometrics in public spaces, and advises immediate decommissioning steps.
+* **High Risk:** Triggers for high-stakes deployment areas such as employment and recruitment, education, critical infrastructure, and medical evaluation. Highlights mandatory items like human oversight under Article 14, continuous logging under Article 12, and conformity assessments under Article 43.
+* **Limited Risk:** Focuses on transparency obligations under Article 52 for customer-facing bots, generative models, and output disclosures.
+* **Minimal Risk:** Identifies low-stakes operational software, such as internal text parsers or IT rule engines, requiring only baseline data privacy compliance.
 
 ### 2. NIST AI RMF Mapping
 Based on the assigned risk tier, the tool maps required governance actions to the four core NIST AI RMF functions:
@@ -33,15 +33,15 @@ Based on the assigned risk tier, the tool maps required governance actions to th
 
 ## Technical Architecture
 
-* **Zero Infrastructure:** Built as a single-page web app using HTML5, Tailwind CSS (via CDN), and plain JavaScript. No backend server, databases, or build steps required.
-* **Data Privacy by Design:** All calculations and data evaluations happen locally within the user's web browser. No intake data or model parameters are ever sent to an external server.
-* **Artifact Generation:** Allows auditors and engineers to export the final assessment directly from the interface as structured `.json` for database ingestion or formatted `.md` for reporting.
+* **Zero Infrastructure:** Built as a single-page web app using HTML5, Tailwind CSS via CDN, and plain JavaScript. No backend server, databases, or build steps required.
+* **Data Privacy by Design:** All calculations and data evaluations happen locally within the user browser. No intake data or model parameters are ever sent to an external server.
+* **Artifact Generation:** Allows auditors and engineers to export the final assessment directly from the interface as structured JSON for database ingestion or formatted Markdown for reporting.
 
 ---
 
 ## Quick Start
 
 1. Clone or download this repository.
-2. Open `index.html` in any browser.
-3. Complete the form parameters on the left and click **Execute Automated Risk Tiering**.
+2. Open index.html in any browser.
+3. Complete the form parameters on the left and click Execute Automated Risk Tiering.
 4. Review the generated gap analysis or export the assessment summary for documentation.
