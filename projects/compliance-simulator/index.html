@@ -24,54 +24,60 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-indigo-500 selection:text-white">
 
     <!-- Top Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="h-3 w-3 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span class="font-semibold tracking-wide text-lg text-slate-200">ComplianceEngine Core</span>
+                <span class="font-bold tracking-wide text-lg text-slate-100">ComplianceEngine Core</span>
             </div>
-            <div class="flex items-center space-x-2 text-xs bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 px-3 py-1.5 rounded-full font-mono">
-                SOC 2 Type II & ISO 27001 Framework
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleModal(true)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3.5 py-2 rounded-lg font-medium transition flex items-center space-x-2 border border-slate-700/60 shadow-sm">
+                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>How to Use</span>
+                </button>
+                <div class="text-xs bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 px-3.5 py-2 rounded-lg font-mono shadow-sm">
+                    SOC 2 Type II & ISO 27001 Framework
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Dashboard Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-7xl mx-auto px-6 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- Left Panel: Control Toggles & Inputs -->
         <section class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col justify-between">
             <div>
-                <h1 class="text-xl font-bold mb-1 text-slate-100">Controls Monitoring Setup</h1>
-                <p class="text-slate-400 text-sm mb-6">Select active telemetry scopes and policy baselines to evaluate automated evidence collection.</p>
+                <h1 class="text-lg font-bold text-slate-100 mb-1">Controls Monitoring Setup</h1>
+                <p class="text-slate-400 text-xs mb-6">Select active telemetry scopes and policy baselines to evaluate automated evidence collection.</p>
                 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Target Framework</label>
-                        <select id="frameworkSelect" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Target Framework</label>
+                        <select id="frameworkSelect" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition">
                             <option value="soc2">SOC 2 Trust Services Criteria (2017)</option>
                             <option value="iso27001">ISO/IEC 27001:2022 Controls</option>
                             <option value="combined">Combined Enterprise Baseline</option>
                         </select>
                     </div>
 
-                    <div class="pt-2">
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Simulated Infrastructure Scope</label>
-                        <div class="space-y-2.5">
+                    <div class="pt-3">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Simulated Infrastructure Scope</label>
+                        <div class="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
                             <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
-                                <input type="checkbox" id="checkCloudflare" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <input type="checkbox" id="checkCloudflare" checked class="rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-0">
                                 <span>Cloudflare Edge Access Logs & WAF</span>
                             </label>
                             <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
-                                <input type="checkbox" id="checkMfa" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <input type="checkbox" id="checkMfa" checked class="rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-0">
                                 <span>Identity Provider (Okta/Entra) MFA Enforcements</span>
                             </label>
                             <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
-                                <input type="checkbox" id="checkIam" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <input type="checkbox" id="checkIam" checked class="rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-0">
                                 <span>IAM Least Privilege & Role Reviews</span>
                             </label>
                             <label class="flex items-center space-x-3 text-sm text-slate-300 cursor-pointer">
-                                <input type="checkbox" id="checkEncryption" checked class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
+                                <input type="checkbox" id="checkEncryption" checked class="rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-0">
                                 <span>Database Encryption at Rest (AES-256)</span>
                             </label>
                         </div>
@@ -79,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-slate-800">
+            <div class="mt-8 pt-4">
                 <button onclick="runAuditSimulation()" id="runBtn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-4 rounded-lg transition shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2 text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     <span>Run Automated Telemetry Audit</span>
@@ -90,8 +96,8 @@
         <!-- Right Panel: Live Output & Ledger -->
         <section class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col justify-between">
             <div id="outputContainer" class="flex flex-col h-full">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400">Execution Stream & Audit Ledger</h2>
+                <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-4">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Execution Stream & Audit Ledger</h2>
                     <span id="statusBadge" class="text-xs px-2.5 py-1 rounded-md font-mono bg-slate-800 text-slate-400">Idle</span>
                 </div>
 
@@ -102,7 +108,7 @@
 
                 <div id="actionToolbar" class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center opacity-50 pointer-events-none transition-opacity">
                     <div class="text-xs text-slate-400">Cryptographic Hash: <span id="hashDisplay" class="font-mono text-indigo-400">---</span></div>
-                    <button onclick="downloadLedger()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-2 rounded-lg font-medium transition flex items-center space-x-1.5">
+                    <button onclick="downloadLedger()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-2 rounded-lg font-medium transition flex items-center space-x-1.5 border border-slate-700/50">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         <span>Download Audit JSON</span>
                     </button>
@@ -112,14 +118,58 @@
 
     </main>
 
+    <!-- How to Use Modal -->
+    <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative">
+            <button onclick="toggleModal(false)" class="absolute top-5 right-5 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            
+            <h2 class="text-lg font-bold text-slate-100 mb-2">Simulator User Guide & Instructions</h2>
+            <p class="text-xs text-slate-400 mb-6">A browser-based continuous controls monitoring (CCM) simulator designed to evaluate automated telemetry polling against SOC 2 Type II and ISO 27001 standards.</p>
+
+            <div class="space-y-4 text-xs text-slate-300 max-h-[60vh] overflow-y-auto pr-2">
+                <div>
+                    <h4 class="font-semibold text-slate-200 mb-1">Configuring Infrastructure Scope:</h4>
+                    <ul class="list-disc pl-5 space-y-1.5 text-slate-400">
+                        <li><strong class="text-slate-300">Target Framework:</strong> Selects the regulatory standard (SOC 2 or ISO 27001) for audit evaluation.</li>
+                        <li><strong class="text-slate-300">Telemetry Toggles:</strong> Enable or disable specific infrastructure controls (Cloudflare WAF, IdP MFA, IAM Reviews, Encryption) to test real-time posture scoring.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-slate-200 mb-1">Execution & Artifact Generation:</h4>
+                    <ul class="list-disc pl-5 space-y-1.5 text-slate-400">
+                        <li><strong class="text-slate-300">Run Automated Telemetry Audit:</strong> Simulates API polling across active scopes, calculating live posture scores (0% to 100%) and status designations (`PASS`, `REVIEW REQUIRED`, or `FAIL`).</li>
+                        <li><strong class="text-slate-300">Download Audit JSON:</strong> Exports the structured cryptographic evidence ledger containing timestamps, active control checks, and deterministic hashes for GRC ingestion.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="toggleModal(false)" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-lg transition shadow">
+                    Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-900/30 text-center py-4 text-xs text-slate-500">
-        Client-Side Controls Monitoring (CCM) Simulator &bull; Zero External Transmission
+        Continuous Compliance & Audit Readiness Simulator &bull; Zero External Transmission
     </footer>
 
     <!-- Simulation Script -->
     <script>
         let lastLedgerData = null;
+
+        function toggleModal(show) {
+            const modal = document.getElementById('helpModal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
 
         async function runAuditSimulation() {
             const terminal = document.getElementById('terminalScreen');
@@ -133,7 +183,6 @@
             statusBadge.className = "text-xs px-2.5 py-1 rounded-md font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse";
             statusBadge.innerText = "Executing Poll...";
 
-            // Gather inputs dynamically
             const frameworkVal = document.getElementById('frameworkSelect').value;
             const cloudflare = document.getElementById('checkCloudflare').checked;
             const mfa = document.getElementById('checkMfa').checked;
@@ -193,7 +242,6 @@
 
             lastLedgerData = mockPayload;
             
-            // Generate deterministic mock hash based on payload content
             const str = JSON.stringify(mockPayload);
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
