@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI Policy & Governance Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 900: '#312e81', 950: '#1e1b4b' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white" x-data="policyApp()">
+
+    <div class="min-h-full flex flex-col">
+        <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 p-2 rounded-lg text-white font-bold text-lg tracking-wider">EAI</div>
+                    <div>
+                        <h1 class="text-base font-semibold leading-tight text-white">Enterprise AI Policy & Governance</h1>
+                        <p class="text-xs text-slate-400">NIST AI 100-1 &amp; EU AI Act Compliant Framework</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-400 rounded-full animate-pulse"></span> v2.4 Active
+                    </span>
+                    <button @click="activeTab = 'policies'" :class="activeTab === 'policies' ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800'" class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors">Policy Explorer</button>
+                    <button @click="activeTab = 'wizard'" :class="activeTab === 'wizard' ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800'" class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors">AI Tool Decision Wizard</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <div x-show="activeTab === 'policies'" class="space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">🔍</span>
+                        <input type="text" x-model="searchQuery" placeholder="Search guidelines, data classifications, vendors, or keywords..." class="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button @click="copyMarkdown()" class="inline-flex items-center px-3 py-2 border border-slate-700 text-xs font-medium rounded-lg text-slate-200 bg-slate-800 hover:bg-slate-700 transition">
+                            📋 Copy Markdown
+                        </button>
+                        <button @click="downloadMarkdown()" class="inline-flex items-center px-3 py-2 border border-indigo-600 text-xs font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition">
+                            📥 Download POLICIES.md
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <template x-for="section in filteredSections" :key="section.id">
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm hover:border-slate-700 transition">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                                <h3 class="text-lg font-bold text-indigo-400" x-text="section.title"></h3>
+                                <span class="text-xs font-mono uppercase tracking-widest text-slate-500 bg-slate-950 px-2.5 py-1 rounded border border-slate-800" x-text="section.tag"></span>
+                            </div>
+                            <div class="text-slate-300 text-sm leading-relaxed space-y-3" x-html="section.content"></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div x-show="activeTab === 'wizard'" class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-8 shadow-xl">
+                    <div class="text-center pb-6 border-b border-slate-800 mb-6">
+                        <h2 class="text-2xl font-bold text-white tracking-tight">AI Tool Decision Wizard</h2>
+                        <p class="text-sm text-slate-400 mt-1">Answer three quick questions to get an instant compliance and authorization ruling.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-200 mb-2">1. What data classification will you input into the AI tool?</label>
+                            <select x-model="wizard.dataClass" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="">Select data classification...</option>
+                                <option value="tier1">Tier 1: Public / Open Data (Marketing, public announcements)</option>
+                                <option value="tier2">Tier 2: Internal / Confidential (Organizational charts, internal memos)</option>
+                                <option value="tier3">Tier 3: Restricted / PII / IP (Source code, customer PII, financials, trade secrets)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-200 mb-2">2. Is the AI application or API officially authorized and provisioned by IT/Security?</label>
+                            <select x-model="wizard.authStatus" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="">Select authorization status...</option>
+                                <option value="yes">Yes - Enterprise licensed / IT Approved</option>
+                                <option value="no">No - Free consumer version / browser extension / shadow IT</option>
+                                <option value="unsure">Unsure / Custom vendor tool</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-200 mb-2">3. What is the intended deployment or usage scenario?</label>
+                            <select x-model="wizard.usageType" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="">Select usage scenario...</option>
+                                <option value="internal">Internal productivity / drafting assistance / document summaries</option>
+                                <option value="customer">External customer-facing automated responses or decisions</option>
+                                <option value="finetune">Model training, fine-tuning, or proprietary code ingestion</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-4 flex justify-end">
+                            <button @click="evaluateWizard()" :disabled="!wizard.dataClass || !wizard.authStatus || !wizard.usageType" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-sm rounded-lg transition shadow-lg shadow-indigo-500/20">
+                                Evaluate Compliance Ruling
+                            </button>
+                        </div>
+                    </div>
+
+                    <template x-if="wizardResult">
+                        <div class="mt-8 p-6 rounded-xl border animate-fade-in" :class="{
+                            'bg-emerald-950/30 border-emerald-500/30 text-emerald-200': wizardResult.status === 'Approved',
+                            'bg-amber-950/30 border-amber-500/30 text-amber-200': wizardResult.status === 'Conditional Review',
+                            'bg-rose-950/30 border-rose-500/30 text-rose-200': wizardResult.status === 'Prohibited'
+                        }">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-2xl" x-text="wizardResult.icon"></span>
+                                <div>
+                                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400">Compliance Verdict</h4>
+                                    <h3 class="text-xl font-bold" x-text="wizardResult.status"></h3>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed mb-4" x-text="wizardResult.explanation"></p>
+                            <div class="bg-slate-950/60 p-4 rounded-lg border border-slate-800/60 text-xs space-y-1">
+                                <span class="font-bold text-slate-300 block mb-1">Required Next Steps:</span>
+                                <p x-text="wizardResult.action"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="bg-slate-900 border-t border-slate-800 py-4 mt-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+                Enterprise AI Acceptable Use &amp; Governance Framework &bull; Mapped to NIST AI 100-1 &amp; EU AI Act &bull; Internal InfoSec Use Only
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function policyApp() {
+            return {
+                activeTab: 'policies',
+                searchQuery: '',
+                wizard: {
+                    dataClass: '',
+                    authStatus: '',
+                    usageType: ''
+                },
+                wizardResult: null,
+                sections: [
+                    {
+                        id: 1,
+                        title: '1. Generative AI & LLM Acceptable Use Policy',
+                        tag: 'Core AUP',
+                        content: 'Governs all corporate GenAI use. Requires <strong>Human-in-the-Loop (HITL)</strong> validation for code, legal, and financial outputs. Employees remain fully accountable for all AI-assisted deliverables.'
+                    },
+                    {
+                        id: 2,
+                        title: '2. Permitted vs. Prohibited Data Classifications',
+                        tag: 'Data Governance',
+                        content: 'Classifies data into 3 tiers: <strong>Tier 1 (Public)</strong> allowed everywhere; <strong>Tier 2 (Internal/Confidential)</strong> restricted to enterprise-managed ZDR tools; <strong>Tier 3 (Restricted/PII/IP)</strong> strictly prohibited on external consumer LLMs.'
+                    },
+                    {
+                        id: 3,
+                        title: '3. Third-Party AI Vendor Risk Checklist',
+                        tag: 'Vendor Assessment',
+                        content: 'Requires CISO & Legal evaluation covering zero training data retention policies, SOC 2 Type II / ISO 42001 certifications, EU AI Act conformity, and regional data residency.'
+                    },
+                    {
+                        id: 4,
+                        title: '4. Shadow AI Prevention & API Governance',
+                        tag: 'Security Controls',
+                        content: 'Prohibits unvetted browser extensions and consumer wrappers. Enforces secure perimeter gateways and centralized API key provisioning through Cloud Engineering.'
+                    },
+                    {
+                        id: 5,
+                        title: '5. Authorization & Exception Request Matrix',
+                        tag: 'Workflow',
+                        content: 'Defines SLAs and approval pathways ranging from standard IT helpdesk requests (2 days) to High-Risk EU AI Act system reviews with Ethics & Legal (30 days).'
+                    }
+                ],
+                get filteredSections() {
+                    if (!this.searchQuery) return this.sections;
+                    const q = this.searchQuery.toLowerCase();
+                    return this.sections.filter(s => s.title.toLowerCase().includes(q) || s.content.toLowerCase().includes(q) || s.tag.toLowerCase().includes(q));
+                },
+                evaluateWizard() {
+                    const { dataClass, authStatus, usageType } = this.wizard;
+                    
+                    if (dataClass === 'tier3' && authStatus === 'no') {
+                        this.wizardResult = {
+                            status: 'Prohibited',
+                            icon: '🚫',
+                            explanation: 'Inputting Restricted / PII / IP data into unauthorized consumer AI tools violates core data loss prevention (DLP) and confidentiality policies.',
+                            action: 'Immediately cease tool usage. Report unauthorized shadow AI utilization to security-incident@enterprise.internal.'
+                        };
+                    } else if (dataClass === 'tier3' && usageType === 'finetune') {
+                        this.wizardResult = {
+                            status: 'Conditional Review',
+                            icon: '⚠️',
+                            explanation: 'Model fine-tuning with proprietary enterprise IP requires comprehensive architecture review and legal sign-off under EU AI Act standards.',
+                            action: 'Submit a formal exception request via the AI Architecture Review Board with data lineage proof and encryption documentation (SLA: 10 business days).'
+                        };
+                    } else if (authStatus === 'no' && dataClass === 'tier2') {
+                        this.wizardResult = {
+                            status: 'Prohibited',
+                            icon: '🚫',
+                            explanation: 'Tier 2 Internal Confidential data cannot be processed on free consumer-tier LLMs due to model training data ingestion risks.',
+                            action: 'Switch immediately to an approved enterprise-licensed LLM platform with Zero Data Retention (ZDR).'
+                        };
+                    } else if (usageType === 'customer' && dataClass !== 'tier1') {
+                        this.wizardResult = {
+                            status: 'Conditional Review',
+                            icon: '⚠️',
+                            explanation: 'Customer-facing automated AI systems classification triggers High-Risk EU AI Act oversight and mandatory fundamental rights impact assessment.',
+                            action: 'Initiate Ethics Committee and Legal Counsel review workflow before deployment.'
+                        };
+                    } else if (authStatus === 'yes' || (dataClass === 'tier1' && authStatus !== 'no')) {
+                        this.wizardResult = {
+                            status: 'Approved',
+                            icon: '✅',
+                            explanation: 'Based on your selections, this use case complies with corporate governance and security guardrails.',
+                            action: 'Ensure Human-in-the-Loop (HITL) verification is maintained for all generated outputs.'
+                        };
+                    } else {
+                        this.wizardResult = {
+                            status: 'Conditional Review',
+                            icon: '⚠️',
+                            explanation: 'Your configuration requires additional InfoSec validation to ensure compliance with enterprise risk tolerances.',
+                            action: 'Contact the IT Helpdesk or review Section 5 of the POLICIES.md documentation suite.'
+                        };
+                    }
+                },
+                copyMarkdown() {
+                    const mdText = `# Enterprise AI Acceptable Use & Governance Framework (EAI-UGF) v2.4\n...\n(Full policy suite available in repository)`;
+                    navigator.clipboard.writeText(mdText);
+                    alert('Markdown summary copied to clipboard!');
+                },
+                downloadMarkdown() {
+                    const blob = new Blob([`# Enterprise AI Acceptable Use & Governance Framework (EAI-UGF) v2.4\n\nRefer to POLICIES.md in the root directory for the full legally binding document.`], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'POLICIES.md';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
