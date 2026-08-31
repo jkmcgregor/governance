@@ -29,7 +29,7 @@ The evaluation engine uses a client-side decision matrix to poll simulated scope
 ## Quick Start
 
 1. Clone or download this repository.
-2. Open `index.html` in any modern web browser.
+2. Open index.html in any modern web browser.
 3. Configure the target framework and telemetry toggles on the left.
 4. Click **Run Automated Telemetry Audit** to execute the polling simulation.
 
