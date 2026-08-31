@@ -311,17 +311,24 @@
             font-family: monospace;
         }
 
+        .prototype-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
         .link-github {
-            color: var(--accent);
+            color: var(--text-muted);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 500;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
         }
 
         .link-github:hover {
+            color: var(--accent);
             text-decoration: underline;
         }
 
@@ -585,7 +592,7 @@
                     <h3>Core Philosophy: "Compliance as Code"</h3>
                     <p>If a compliance requirement can be checked manually, it can be audited programmatically 24/7/365.</p>
                 </div>
-                <a href="#prototypes" class="btn-primary">View Code Repos & Demos →</a>
+                <a href="#prototypes" class="btn-primary">Explore Interactive Demos →</a>
             </div>
         </div>
     </div>
@@ -653,7 +660,10 @@
                             <span class="tech-pill">REST API</span>
                         </div>
                     </div>
-                    <a href="https://governance.jainamcgregor.com/projects/ai-grc-engine/" target="_blank" class="link-github">Explore Interactive Demo →</a>
+                    <div class="prototype-actions">
+                        <a href="https://governance.jainamcgregor.com/projects/ai-grc-engine/" target="_blank" class="btn-primary" style="justify-content: center;">Explore Interactive Demo →</a>
+                        <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View Source Code on GitHub ↗</a>
+                    </div>
                 </div>
 
                 <div class="prototype-card">
@@ -670,7 +680,10 @@
                             <span class="tech-pill">Cloudflare</span>
                         </div>
                     </div>
-                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View GitHub Repository & Code →</a>
+                    <div class="prototype-actions">
+                        <a href="https://governance.jainamcgregor.com" target="_blank" class="btn-primary" style="justify-content: center;">Launch Live Application →</a>
+                        <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View Source Code on GitHub ↗</a>
+                    </div>
                 </div>
 
                 <div class="prototype-card">
@@ -686,7 +699,9 @@
                             <span class="tech-pill">Risk Governance</span>
                         </div>
                     </div>
-                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">Download Policy Template Suite →</a>
+                    <div class="prototype-actions">
+                        <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">Download Policy Template Suite →</a>
+                    </div>
                 </div>
 
                 <div class="prototype-card">
@@ -702,7 +717,9 @@
                             <span class="tech-pill">IAM Auditing</span>
                         </div>
                     </div>
-                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View SQL & Python Utility →</a>
+                    <div class="prototype-actions">
+                        <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View SQL & Python Utility →</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -892,7 +909,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Jaina McGregor. GRC Cybersecurity & AI Governance Automation.</p>
+            <p>&copy; <span id="copyrightYear"></span> Jaina McGregor. GRC Cybersecurity & AI Governance Automation.</p>
         </div>
     </footer>
 
@@ -912,13 +929,7 @@
                 document.getElementById('flow-auto').classList.add('active');
             }
         }
-    </script>
 
-    <footer class="mt-8 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        &copy; <span id="copyrightYear"></span> J. McGregor All rights reserved.
-    </footer>
-
-    <script>
         // Automatically set the current year for the copyright notice
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
