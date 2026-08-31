@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaina McGregor | GRC Cybersecurity & AI Governance Automation</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #2563eb;
+            --accent-glow: #3b82f6;
+            --accent-soft: #eff6ff;
+            --success: #16a34a;
+            --success-soft: #f0fdf4;
+            --warning: #d97706;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --radius: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header / Nav */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .brand span {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4.5rem 0 3.5rem 0;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-name {
+            font-size: 3.5rem;
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 900px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
+        }
+
+        .hero-banner {
+            background: #0f172a;
+            color: #ffffff;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hero-banner-text h3 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-banner-text p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Section Layout */
+        section {
+            padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Prototypes & Demo Repos */
+        .prototype-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .prototype-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        .badge-dev {
+            background: #fef3c7;
+            color: #b45309;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            align-self: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-live {
+            background: var(--success-soft);
+            color: var(--success);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            align-self: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .prototype-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .prototype-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .tech-pill {
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .link-github {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .link-github:hover {
+            text-decoration: underline;
+        }
+
+        /* Interactive BPMN / Architecture Switcher */
+        .artifact-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .bpmn-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+        }
+
+        .bpmn-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .flow-wrapper {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 750px;
+        }
+
+        .flow-wrapper.active {
+            display: flex;
+        }
+
+        .flow-step {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 130px;
+            text-align: center;
+        }
+
+        .flow-step.error {
+            background: #fef2f2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+
+        .flow-step.success {
+            background: #f0fdf4;
+            border-color: #86efac;
+            color: #166534;
+        }
+
+        .flow-step.highlight {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .step-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .step-sub {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        .flow-arrow {
+            color: #94a3b8;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Case Studies */
+        .case-study {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .case-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .case-badge {
+            background: #f1f5f9;
+            color: var(--primary-light);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .case-block h5 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .case-block p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #93c5fd;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-name {
+                font-size: 2.5rem;
+            }
+            .hero-title {
+                font-size: 1.25rem;
+            }
+            .nav-container {
+                flex-direction: column;
+                justify-content: center;
+                gap: 0.5rem;
+                height: auto;
+                padding: 1rem 0;
+            }
+            nav a {
+                margin: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="brand">J. McGregor <span>| GRC & AI Governance</span></a>
+            <nav>
+                <a href="#competencies">Competencies</a>
+                <a href="#prototypes">Working Prototypes</a>
+                <a href="#architecture">Continuous Audit Flow</a>
+                <a href="#case-studies">Case Studies</a>
+                <a href="#education">Education</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1 class="hero-name">Jaina McGregor</h1>
+            <h2 class="hero-title">GRC Cybersecurity & AI Governance Automation Engineer</h2>
+            <p class="hero-description">
+                Replacing manual sample testing and static spreadsheet audits with programmatically enforced compliance pipelines. 
+                Specializing in automated evidence collection, NIST AI Risk Management Framework (AI RMF) mapping, EU AI Act risk classification, and Continuous Controls Monitoring (CCM) via custom Python, Webhooks, and API integrations.
+            </p>
+            <div class="hero-tags">
+                <span class="tag">NIST AI RMF 1.0 & CSF 2.0</span>
+                <span class="tag">EU AI Act Compliance</span>
+                <span class="tag">Automated Evidence Collection</span>
+                <span class="tag">Policy-as-Code (Python / Docker)</span>
+                <span class="tag">ISO 27001 & SOC 2 Type II</span>
+                <span class="tag">Continuous Controls Monitoring (CCM)</span>
+            </div>
+            <div class="hero-banner">
+                <div class="hero-banner-text">
+                    <h3>Core Philosophy: "Compliance as Code"</h3>
+                    <p>If a compliance requirement can be checked manually, it can be audited programmatically 24/7/365.</p>
+                </div>
+                <a href="#prototypes" class="btn-primary">View Code Repos & Demos →</a>
+            </div>
+        </div>
+    </div>
+
+    <section id="competencies">
+        <div class="container">
+            <h2 class="section-title">GRC & AI Governance Core Pillars</h2>
+            <p class="section-subtitle">Combining traditional enterprise risk management with modern dev-sec-ops automated compliance pipelines.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>AI Compliance & Governance</h3>
+                    <ul>
+                        <li>NIST AI RMF (GOVERN, MAP, MEASURE, MANAGE)</li>
+                        <li>EU AI Act Risk Classification & System Cards</li>
+                        <li>Algorithmic Bias & Data Transparency Auditing</li>
+                        <li>Generative AI Acceptable Use Policy Enforcement</li>
+                        <li>Model Inventory & Lineage Tracking Governance</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Automated GRC & Policy-as-Code</h3>
+                    <ul>
+                        <li>Automated API-based Audit Evidence Gathering</li>
+                        <li>Continuous Controls Monitoring (CCM) Architecture</li>
+                        <li>Python Scripting for Compliance Telemetry</li>
+                        <li>Automated Vendor & Third-Party Risk Scoring</li>
+                        <li>SQL-based Identity & Access Audit Verification</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Cybersecurity Frameworks</h3>
+                    <ul>
+                        <li>NIST CSF 2.0 / SP 800-53 Control Mapping</li>
+                        <li>ISO/IEC 27001:2022 ISMS Governance</li>
+                        <li>SOC 2 Type II Trust Services Criteria Auditing</li>
+                        <li>Requirements Traceability Matrices (RTM)</li>
+                        <li>Risk Register Engineering & Residual Risk Analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE PROTOTYPES & REPOSITORY LINKS -->
+    <section id="prototypes" style="background-color: var(--bg-card);">
+        <div class="container">
+            <h2 class="section-title">Working Prototypes & Proof of Concepts</h2>
+            <p class="section-subtitle">Demonstrating functional automation tools built to remove manual effort from GRC and AI Compliance workflows.</p>
+
+            <div class="grid-2">
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-live">Live Prototype</span>
+                        <div class="prototype-title">Automated EU AI Act & NIST AI RMF Risk Tiering Engine</div>
+                        <div class="prototype-desc">
+                            A lightweight Python microservice that ingests model documentation metadata, assesses systemic risk levels against EU AI Act annexes, and auto-generates structured System Cards and compliance gap reports.
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">JSON Schema</span>
+                            <span class="tech-pill">Docker</span>
+                            <span class="tech-pill">REST API</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View GitHub Repository & Code →</a>
+                </div>
+
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-live">Live Prototype</span>
+                        <div class="prototype-title">Continuous Evidence Collector for SOC 2 / ISO 27001</div>
+                        <div class="prototype-desc">
+                            Automated triage and collection script leveraging Webhooks and REST APIs to query cloud infrastructure access logs, pull user access reviews, and store immutable audit trails automatically.
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">SQL</span>
+                            <span class="tech-pill">Google Apps Script</span>
+                            <span class="tech-pill">Cloudflare</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View GitHub Repository & Code →</a>
+                </div>
+
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-dev">Documentation & Template</span>
+                        <div class="prototype-title">Enterprise AI Acceptable Use & Governance Framework</div>
+                        <div class="prototype-desc">
+                            Production-ready enterprise policy stack governing LLM deployment, shadow AI prevention, data privacy boundaries, and employee AI tool authorization matrices.
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-pill">NIST AI 100-1</span>
+                            <span class="tech-pill">Policy Framework</span>
+                            <span class="tech-pill">Risk Governance</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">Download Policy Template Suite →</a>
+                </div>
+
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-dev">Database Script</span>
+                        <div class="prototype-title">Automated RBAC & Least Privilege Access Audit Tool</div>
+                        <div class="prototype-desc">
+                            SQL and Python utility designed to parse multi-system user export lists, flagging unauthorized privilege escalation, stale accounts, and separation-of-duties (SoD) violations instantly.
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-pill">SQL</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">IAM Auditing</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/jainamcgregor" target="_blank" class="link-github">View SQL & Python Utility →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE METHODOLOGY & ARCHITECTURE -->
+    <section id="architecture">
+        <div class="container">
+            <h2 class="section-title">Compliance Architecture: Manual vs. Automated</h2>
+            <p class="section-subtitle">Visualizing how continuous control monitoring replaces point-in-time sampling.</p>
+
+            <div class="artifact-card">
+                <div class="bpmn-container">
+                    <div class="bpmn-toggle">
+                        <button id="btn-manual" class="toggle-btn active" onclick="switchFlowState('manual')">Traditional Manual Audit (Legacy)</button>
+                        <button id="btn-auto" class="toggle-btn" onclick="switchFlowState('auto')">Automated Continuous Compliance (Engineered)</button>
+                    </div>
+
+                    <!-- Manual Flow -->
+                    <div id="flow-manual" class="flow-wrapper active">
+                        <div class="flow-step error">
+                            <span class="step-title">Annual Audit Trigger</span>
+                            <span class="step-sub">Point-in-Time</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <span class="step-title">Manual Screenshoting</span>
+                            <span class="step-sub">High Effort / Slow</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <span class="step-title">Sample Data Verification</span>
+                            <span class="step-sub">5% Population Check</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step error">
+                            <span class="step-title">Stale Audit Report</span>
+                            <span class="step-sub">High Blindspot Risk</span>
+                        </div>
+                    </div>
+
+                    <!-- Automated Flow -->
+                    <div id="flow-auto" class="flow-wrapper">
+                        <div class="flow-step success">
+                            <span class="step-title">Event-Driven Hook</span>
+                            <span class="step-sub">Real-Time Telemetry</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step highlight">
+                            <span class="step-title">Python/API Validator</span>
+                            <span class="step-sub">Automated Check</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step highlight">
+                            <span class="step-title">Immutable Log Store</span>
+                            <span class="step-sub">100% Population</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step success">
+                            <span class="step-title">Continuous Dashboard</span>
+                            <span class="step-sub">Zero Audit Friction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="artifact-card" style="margin-bottom: 0;">
+                <h3 style="font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem;">AI System Governance & Compliance Matrix (NIST AI RMF / EU AI Act Mapping)</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Structured breakdown of control checkpoints for enterprise AI model deployments.</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>System Risk Category</th>
+                                <th>EU AI Act Level</th>
+                                <th>NIST AI RMF Control</th>
+                                <th>Automated Verification Method</th>
+                                <th>Compliance Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Customer Support LLM</strong></td>
+                                <td>Limited Risk</td>
+                                <td>MAP 2.1 / MEASURE 2.2</td>
+                                <td>Automated system transparency disclaimer check & output logging</td>
+                                <td><span style="color: var(--success); font-weight: bold;">Compliant (Automated)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Automated Candidate Screening</strong></td>
+                                <td>High Risk</td>
+                                <td>GOVERN 1.2 / MEASURE 2.6</td>
+                                <td>Algorithmic bias testing pipeline + Human-in-the-loop review log</td>
+                                <td><span style="color: var(--success); font-weight: bold;">Compliant (Automated)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Biometric Authentication</strong></td>
+                                <td>High / Prohibited Use Check</td>
+                                <td>GOVERN 3.1 / MANAGE 1.1</td>
+                                <td>API access restriction validation & explicit consent audit logger</td>
+                                <td><span style="color: var(--warning); font-weight: bold;">Audit Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies" style="background-color: var(--bg-card);">
+        <div class="container">
+            <h2 class="section-title">GRC & AI Governance Case Studies</h2>
+            <p class="section-subtitle">Real-world scenarios demonstrating risk reduction, framework implementation, and process engineering.</p>
+
+            <div class="case-study">
+                <div class="case-header">
+                    <div class="case-title">Enterprise AI Risk Management Framework (NIST AI RMF) Implementation</div>
+                    <span class="case-badge">AI Compliance & Governance</span>
+                </div>
+                <p>Designed and deployed an end-to-end AI governance architecture for evaluating third-party and internally built machine learning models prior to production release.</p>
+                <div class="case-grid">
+                    <div class="case-block">
+                        <h5>The Risk Challenge</h5>
+                        <p>Business units were adopting generative AI tools rapidly without centralized oversight, exposing the organization to data leakage, IP risk, and unvetted algorithmic bias.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Solution</h5>
+                        <p>Created a standardized AI Model Intake process mapped to NIST AI RMF 1.0. Developed automated Python scripts to validate model cards, data provenance, and security controls.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>Measurable Impact</h5>
+                        <p>Reduced AI system review time from 3 weeks to 48 hours while achieving 100% visibility over deployed organizational models.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-header">
+                    <div class="case-title">SOC 2 & ISO 27001 Evidence Automation Pipeline</div>
+                    <span class="case-badge">GRC Process Automation</span>
+                </div>
+                <p>Re-engineered legacy manual compliance testing procedures into an automated Continuous Controls Monitoring (CCM) routine.</p>
+                <div class="case-grid">
+                    <div class="case-block">
+                        <h5>The Risk Challenge</h5>
+                        <p>Audit preparation required hundreds of engineering hours every quarter to manually take screenshots, export CSVs, and reconcile access control lists.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Solution</h5>
+                        <p>Built serverless integration workflows using Python and webhooks to query system APIs, check security configurations against policy baselines, and push evidence directly to audit repositories.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>Measurable Impact</h5>
+                        <p>Eliminated 85% of manual evidence gathering labor and achieved zero audit non-conformities during annual surveillance audits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION & CREDENTIALS -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Academic & Technical Background</h2>
+            <p class="section-subtitle">Strong foundation combining IT project leadership, information systems architecture, and technical education.</p>
+
+            <div class="edu-grid">
+                <div class="card">
+                    <h3>Graduate Education</h3>
+                    <p style="font-weight: 600; color: var(--primary);">M.S. in Leadership</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Emphasis in Leading & Managing Technical Projects</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Northeastern University</p>
+                </div>
+
+                <div class="card">
+                    <h3>Undergraduate Education</h3>
+                    <p style="font-weight: 600; color: var(--primary);">B.S. in Business Information Systems</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">College of Business</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Oregon State University</p>
+                </div>
+
+                <div class="card">
+                    <h3>Instruction & Continuous Technical Learning</h3>
+                    <p style="font-weight: 600; color: var(--primary);">Adjunct Instructor / Applied Coursework</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">California Institute of Applied Technology (CIAT) / Saddleback College</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><em>Focus: CompTIA Tech+ / IT Fundamentals Instruction & Advanced Data Science coursework.</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Jaina McGregor. GRC Cybersecurity & AI Governance Automation.</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchFlowState(state) {
+            document.getElementById('btn-manual').classList.remove('active');
+            document.getElementById('btn-auto').classList.remove('active');
+            
+            document.getElementById('flow-manual').classList.remove('active');
+            document.getElementById('flow-auto').classList.remove('active');
+            
+            if(state === 'manual') {
+                document.getElementById('btn-manual').classList.add('active');
+                document.getElementById('flow-manual').classList.add('active');
+            } else {
+                document.getElementById('btn-auto').classList.add('active');
+                document.getElementById('flow-auto').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
