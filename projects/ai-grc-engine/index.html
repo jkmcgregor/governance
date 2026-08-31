@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI GRC Automation Engine | EU AI Act & NIST RMF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151e2e', 900: '#0f172a' },
+                        brand: { 500: '#3b82f6', 600: '#2563eb' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a sleek enterprise look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-850 border-b border-slate-700 py-4 px-6 lg:px-12 flex justify-between items-center sticky top-0 z-10">
+        <div>
+            <h1 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                AI GRC Tiering Engine
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">Automated EU AI Act & NIST AI RMF 1.0 Mapping</p>
+        </div>
+        <div class="text-xs font-mono bg-slate-800 px-3 py-1 rounded-md border border-slate-700">
+            System Status: <span class="text-emerald-400">Secure (Local Eval)</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 lg:p-12 overflow-hidden max-w-screen-2xl mx-auto w-full">
+        
+        <!-- Left Column: Input Form -->
+        <section class="lg:col-span-4 bg-slate-800 rounded-xl border border-slate-700 p-6 flex flex-col h-full overflow-y-auto shadow-xl">
+            <h2 class="text-lg font-semibold text-white mb-4 border-b border-slate-700 pb-2">Model Metadata Audit Form</h2>
+            <form id="audit-form" class="flex-1 flex flex-col gap-4">
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">System Name</label>
+                    <input type="text" id="sys-name" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" placeholder="e.g., CV-Screen-Pro">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Business Department</label>
+                    <input type="text" id="sys-dept" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" placeholder="e.g., Human Resources">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">System Domain / Use Case</label>
+                    <select id="sys-domain" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                        <option value="" disabled selected>Select Primary Domain...</option>
+                        <option value="social_scoring">Social Scoring / Subliminal Manipulation</option>
+                        <option value="law_enforcement">Law Enforcement / Border Control</option>
+                        <option value="critical_infra">Critical Infrastructure Management</option>
+                        <option value="employment">Employment / HR / Education</option>
+                        <option value="healthcare">Healthcare / Medical Devices</option>
+                        <option value="customer_service">Customer Service / Chatbots</option>
+                        <option value="internal_ops">Internal IT Operations</option>
+                        <option value="entertainment">Entertainment / Video Games</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Model Type</label>
+                    <select id="sys-type" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                        <option value="" disabled selected>Select Architecture...</option>
+                        <option value="gen_ai">Generative AI / LLM / Deepfake</option>
+                        <option value="biometric">Biometrics / Remote Facial Rec.</option>
+                        <option value="predictive">Predictive Analytics / Classification</option>
+                        <option value="rule_based">Rule-Based Expert System</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Data Sensitivity Level</label>
+                    <select id="sys-data" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                        <option value="public">Public / Open Source Data</option>
+                        <option value="internal">Internal Business Data</option>
+                        <option value="confidential">Confidential / Proprietary</option>
+                        <option value="restricted">Highly Restricted / PII / PHI</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Human-in-the-Loop (HITL) Status</label>
+                    <select id="sys-hitl" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+                        <option value="no">No Human Oversight (Fully Autonomous)</option>
+                        <option value="partial">Partial / Reactive Oversight</option>
+                        <option value="yes">Mandatory Human Review before Action</option>
+                    </select>
+                </div>
+
+                <div class="mt-auto pt-4">
+                    <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex justify-center items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Execute Automated Risk Tiering
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Right Column: Interactive System Card -->
+        <section class="lg:col-span-8 flex flex-col h-full overflow-hidden">
+            <div id="empty-state" class="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-xl border-dashed flex flex-col justify-center items-center text-slate-500">
+                <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <p class="text-lg">Awaiting Model Metadata</p>
+                <p class="text-sm mt-1">Complete the audit form to generate the System Card.</p>
+            </div>
+
+            <!-- Populated System Card -->
+            <div id="system-card" class="hidden flex-1 bg-slate-800 border border-slate-600 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+                
+                <!-- Card Header -->
+                <div class="bg-slate-900 border-b border-slate-700 p-6 flex justify-between items-start">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 id="out-name" class="text-2xl font-bold text-white">System Name</h2>
+                            <span id="out-badge" class="px-3 py-1 text-xs font-bold uppercase rounded-full tracking-wider border">RISK TIER</span>
+                        </div>
+                        <p id="out-meta" class="text-sm text-slate-400 font-mono">Dept: HR | Type: Predictive Analytics | Data: Highly Restricted</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="exportMarkdown()" class="p-2 bg-slate-700 hover:bg-slate-600 rounded border border-slate-600 transition-colors text-slate-200" title="Export Markdown">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </button>
+                        <button onclick="exportJSON()" class="p-2 bg-slate-700 hover:bg-slate-600 rounded border border-slate-600 transition-colors text-slate-200" title="Export JSON">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Body (Scrollable) -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-800">
+                    
+                    <!-- Alert Banner -->
+                    <div id="out-alert" class="p-4 rounded-lg border text-sm font-medium"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Gap Analysis -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3 border-b border-slate-700 pb-1">Automated Gap Analysis</h3>
+                            <ul id="out-gaps" class="space-y-3">
+                                <!-- Dynamic Gaps -->
+                            </ul>
+                        </div>
+
+                        <!-- NIST RMF Mapping -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3 border-b border-slate-700 pb-1">NIST AI RMF 1.0 Requirements</h3>
+                            <div id="out-nist" class="space-y-4">
+                                <!-- Dynamic NIST Blocks -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Data Structure for Exports
+        let currentSystemData = null;
+
+        // Form Submit Handler
+        document.getElementById('audit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Gather Inputs
+            const formData = {
+                name: document.getElementById('sys-name').value,
+                dept: document.getElementById('sys-dept').value,
+                domain: document.getElementById('sys-domain').value,
+                type: document.getElementById('sys-type').value,
+                dataSens: document.getElementById('sys-data').value,
+                hitl: document.getElementById('sys-hitl').value
+            };
+
+            // 2. Rule Engine Logic (EU AI Act + NIST RMF)
+            const evaluation = evaluateRisk(formData);
+            currentSystemData = { ...formData, ...evaluation, timestamp: new Date().toISOString() };
+
+            // 3. Render Output
+            renderSystemCard(currentSystemData);
+        });
+
+        function evaluateRisk(data) {
+            let riskTier = 'Minimal';
+            let gaps = [];
+            let nistFunctions = [];
+
+            // Evaluator Logic
+            if (data.domain === 'social_scoring' || (data.domain === 'law_enforcement' && data.type === 'biometric')) {
+                riskTier = 'Unacceptable';
+            } else if (['critical_infra', 'employment', 'healthcare', 'law_enforcement'].includes(data.domain)) {
+                riskTier = 'High';
+            } else if (data.type === 'gen_ai' || data.type === 'biometric' || data.domain === 'customer_service') {
+                riskTier = 'Limited';
+            } else {
+                riskTier = 'Minimal';
+            }
+
+            // Gaps & NIST Mapping based on Tier & Settings
+            if (riskTier === 'Unacceptable') {
+                gaps.push("CRITICAL VIOLATION: System falls under prohibited AI practices (EU AI Act Title II).");
+                gaps.push("ACTION REQUIRED: Immediate decommissioning sequence must be initiated.");
+                nistFunctions = [
+                    { func: 'GOVERN', color: 'bg-indigo-900 text-indigo-200 border-indigo-700', desc: 'Activate legal hold and decommission policies.' },
+                    { func: 'MANAGE', color: 'bg-teal-900 text-teal-200 border-teal-700', desc: 'Isolate system from production networks.' }
+                ];
+            } else if (riskTier === 'High') {
+                gaps.push("Mandatory conformity assessment required prior to deployment (Art 43).");
+                gaps.push("Implement strict data governance and bias mitigation (Art 10).");
+                gaps.push("Establish automated continuous logging (Art 12).");
+                if (data.hitl === 'no') gaps.push("GAP: High-Risk systems mandate Human-in-the-Loop oversight (Art 14).");
+                
+                nistFunctions = [
+                    { func: 'GOVERN', color: 'bg-indigo-900 text-indigo-200 border-indigo-700', desc: 'Establish cross-functional AI oversight committee.' },
+                    { func: 'MAP', color: 'bg-emerald-900 text-emerald-200 border-emerald-700', desc: 'Document context, dependencies, and potential adverse impacts.' },
+                    { func: 'MEASURE', color: 'bg-amber-900 text-amber-200 border-amber-700', desc: 'Rigorous algorithmic bias and robustness testing.' },
+                    { func: 'MANAGE', color: 'bg-teal-900 text-teal-200 border-teal-700', desc: 'Continuous post-market monitoring and incident response.' }
+                ];
+            } else if (riskTier === 'Limited') {
+                gaps.push("Transparency requirement: Users must be notified they are interacting with AI (Art 52).");
+                if (data.type === 'gen_ai') gaps.push("Generative AI requires watermarking/labeling of outputs.");
+                if (data.dataSens === 'restricted' || data.dataSens === 'confidential') gaps.push("GAP: Ensure LLM/GenAI inputs are scrubbed of PII/Confidential data.");
+                
+                nistFunctions = [
+                    { func: 'GOVERN', color: 'bg-indigo-900 text-indigo-200 border-indigo-700', desc: 'Define transparency and disclosure policies.' },
+                    { func: 'MAP', color: 'bg-emerald-900 text-emerald-200 border-emerald-700', desc: 'Identify third-party model dependencies and terms of service.' },
+                    { func: 'MANAGE', color: 'bg-teal-900 text-teal-200 border-teal-700', desc: 'Monitor for model drift and user misuse.' }
+                ];
+            } else { // Minimal
+                gaps.push("No explicit regulatory barriers under EU AI Act. Voluntary codes of conduct recommended.");
+                if (data.dataSens === 'restricted') gaps.push("GAP: Standard GDPR/CCPA data privacy controls still apply due to sensitive data.");
+                
+                nistFunctions = [
+                    { func: 'GOVERN', color: 'bg-indigo-900 text-indigo-200 border-indigo-700', desc: 'Maintain AI inventory standard practices.' },
+                    { func: 'MAP', color: 'bg-emerald-900 text-emerald-200 border-emerald-700', desc: 'Basic documentation of business value and data sources.' }
+                ];
+            }
+
+            return { tier: riskTier, gaps, nistFunctions };
+        }
+
+        function renderSystemCard(data) {
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('system-card').classList.remove('hidden');
+
+            document.getElementById('out-name').textContent = data.name;
+            document.getElementById('out-meta').textContent = `Dept: ${data.dept} | Domain: ${data.domain} | Type: ${data.type} | Data: ${data.dataSens} | HITL: ${data.hitl}`;
+
+            const badge = document.getElementById('out-badge');
+            const alert = document.getElementById('out-alert');
+            
+            // Badge & Alert Styling
+            badge.className = 'px-3 py-1 text-xs font-bold uppercase rounded-full tracking-wider border';
+            alert.className = 'p-4 rounded-lg border text-sm font-medium flex items-center gap-3 mb-6';
+            
+            let iconSvg = '';
+
+            if (data.tier === 'Unacceptable') {
+                badge.classList.add('bg-red-900', 'text-red-200', 'border-red-500');
+                alert.classList.add('bg-red-900/30', 'border-red-500/50', 'text-red-200');
+                iconSvg = `<svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+                alert.innerHTML = `${iconSvg} <div><strong>PROHIBITED SYSTEM:</strong> This system architecture poses an unacceptable risk under EU AI Act guidelines and must be blocked from deployment.</div>`;
+            } else if (data.tier === 'High') {
+                badge.classList.add('bg-orange-900', 'text-orange-200', 'border-orange-500');
+                alert.classList.add('bg-orange-900/30', 'border-orange-500/50', 'text-orange-200');
+                iconSvg = `<svg class="w-6 h-6 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+                alert.innerHTML = `${iconSvg} <div><strong>HIGH RISK:</strong> Mandatory compliance requirements apply. Strict conformity assessments and fundamental rights impact assessments required.</div>`;
+            } else if (data.tier === 'Limited') {
+                badge.classList.add('bg-yellow-900', 'text-yellow-200', 'border-yellow-500');
+                alert.classList.add('bg-yellow-900/30', 'border-yellow-500/50', 'text-yellow-200');
+                iconSvg = `<svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                alert.innerHTML = `${iconSvg} <div><strong>LIMITED RISK:</strong> Subject to specific transparency obligations. End-users must be informed they are interacting with an AI system.</div>`;
+            } else {
+                badge.classList.add('bg-green-900', 'text-green-200', 'border-green-500');
+                alert.classList.add('bg-green-900/30', 'border-green-500/50', 'text-green-200');
+                iconSvg = `<svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                alert.innerHTML = `${iconSvg} <div><strong>MINIMAL RISK:</strong> No mandatory EU AI Act obligations beyond standard data privacy (GDPR) and corporate AI usage policies.</div>`;
+            }
+            
+            badge.textContent = `${data.tier} Risk`;
+
+            // Render Gaps
+            const gapsList = document.getElementById('out-gaps');
+            gapsList.innerHTML = '';
+            data.gaps.forEach(gap => {
+                const li = document.createElement('li');
+                const isGap = gap.startsWith('GAP:');
+                li.className = `flex items-start gap-2 p-3 rounded border text-sm ${isGap ? 'bg-red-900/20 border-red-800 text-red-200' : 'bg-slate-700/30 border-slate-700 text-slate-300'}`;
+                li.innerHTML = `
+                    <svg class="w-5 h-5 mt-0.5 ${isGap ? 'text-red-500' : 'text-brand-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${isGap ? 'M6 18L18 6M6 6l12 12' : 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'}"></path></svg>
+                    <span>${gap.replace('GAP: ', '<strong>GAP:</strong> ')}</span>
+                `;
+                gapsList.appendChild(li);
+            });
+
+            // Render NIST
+            const nistDiv = document.getElementById('out-nist');
+            nistDiv.innerHTML = '';
+            data.nistFunctions.forEach(nf => {
+                const block = document.createElement('div');
+                block.className = `p-3 rounded border flex flex-col gap-1 ${nf.color}`;
+                block.innerHTML = `
+                    <span class="text-xs font-bold uppercase tracking-widest">${nf.func}</span>
+                    <span class="text-sm">${nf.desc}</span>
+                `;
+                nistDiv.appendChild(block);
+            });
+        }
+
+        // Export Functions
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type: type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function exportJSON() {
+            if (!currentSystemData) return alert("No data to export.");
+            downloadFile(JSON.stringify(currentSystemData, null, 2), `${currentSystemData.name}-Audit.json`, 'application/json');
+        }
+
+        function exportMarkdown() {
+            if (!currentSystemData) return alert("No data to export.");
+            
+            const md = `# AI System Governance Audit Card
+**Generated:** ${currentSystemData.timestamp}
+
+## Metadata
+* **System Name:** ${currentSystemData.name}
+* **Department:** ${currentSystemData.dept}
+* **Domain:** ${currentSystemData.domain}
+* **Model Type:** ${currentSystemData.type}
+* **Data Sensitivity:** ${currentSystemData.dataSens}
+* **Human-in-the-Loop:** ${currentSystemData.hitl}
+
+## Regulatory Alignment
+**EU AI Act Tier:** ${currentSystemData.tier} Risk
+
+### Gap Analysis & Requirements
+${currentSystemData.gaps.map(g => `- ${g}`).join('\n')}
+
+### NIST AI RMF 1.0 Mapping
+${currentSystemData.nistFunctions.map(nf => `- **${nf.func}**: ${nf.desc}`).join('\n')}
+
+---
+*Generated by Automated GRC Tiering Engine*
+`;
+            downloadFile(md, `${currentSystemData.name}-Audit.md`, 'text/markdown');
+        }
+    </script>
+</body>
+</html>
