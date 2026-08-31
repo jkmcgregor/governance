@@ -133,39 +133,67 @@
             statusBadge.className = "text-xs px-2.5 py-1 rounded-md font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse";
             statusBadge.innerText = "Executing Poll...";
 
+            // Gather inputs dynamically
+            const frameworkVal = document.getElementById('frameworkSelect').value;
+            const cloudflare = document.getElementById('checkCloudflare').checked;
+            const mfa = document.getElementById('checkMfa').checked;
+            const iam = document.getElementById('checkIam').checked;
+            const encryption = document.getElementById('checkEncryption').checked;
+
+            const checkedCount = [cloudflare, mfa, iam, encryption].filter(Boolean).length;
+            const scorePercent = Math.round((checkedCount / 4) * 100);
+            const postureScoreStr = scorePercent + "%";
+            
+            let auditStatus = "PASS";
+            let statusBadgeClass = "text-xs px-2.5 py-1 rounded-md font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            let badgeText = "Audit Passed";
+
+            if (scorePercent === 0) {
+                auditStatus = "FAIL";
+                statusBadgeClass = "text-xs px-2.5 py-1 rounded-md font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+                badgeText = "Audit Failed (0 Controls)";
+            } else if (scorePercent < 100) {
+                auditStatus = "REVIEW REQUIRED";
+                statusBadgeClass = "text-xs px-2.5 py-1 rounded-md font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20";
+                badgeText = "Review Required";
+            }
+
             const steps = [
                 "[INFO] Initializing client-side REST polling workers...",
-                "[CONNECT] Querying simulated Cloudflare Edge WAF endpoints...",
-                "[VERIFY] Checking Identity Provider MFA coverage statistics...",
-                "[AUDIT] Scanning IAM permission boundaries for privilege escalations...",
+                `[CONNECT] Evaluating framework: ${frameworkVal.toUpperCase()}...`,
+                `[VERIFY] Active telemetry scopes verified (${checkedCount}/4 controls active)...`,
+                `[EVAL] Calculating real-time posture score: ${postureScoreStr}...`,
                 "[CRYPTO] Generating SHA-256 payload ledger and sealing signature...",
-                "[SUCCESS] Compliance readiness state verified. Posture: 98.4% Compliant."
+                `[RESULT] Compliance evaluation complete. Status: ${auditStatus}.`
             ];
 
             let htmlContent = "";
             for (let i = 0; i < steps.length; i++) {
                 await new Promise(r => setTimeout(r, 400));
-                htmlContent += `<div class="mb-1.5 text-emerald-400">${steps[i]}</div>`;
+                let colorClass = "text-emerald-400";
+                if (i === 5 && auditStatus === "FAIL") colorClass = "text-rose-400";
+                if (i === 5 && auditStatus === "REVIEW REQUIRED") colorClass = "text-amber-400";
+                htmlContent += `<div class="mb-1.5 ${colorClass}">${steps[i]}</div>`;
                 terminal.innerHTML = htmlContent;
                 terminal.scrollTop = terminal.scrollHeight;
             }
 
             const mockPayload = {
                 timestamp: new Date().toISOString(),
-                framework: document.getElementById('frameworkSelect').value,
+                framework: frameworkVal,
                 controls_checked: {
-                    cloudflare: document.getElementById('checkCloudflare').checked,
-                    mfa: document.getElementById('checkMfa').checked,
-                    iam: document.getElementById('checkIam').checked,
-                    encryption: document.getElementById('checkEncryption').checked
+                    cloudflare: cloudflare,
+                    mfa: mfa,
+                    iam: iam,
+                    encryption: encryption
                 },
-                posture_score: "98.4%",
-                status: "PASS"
+                posture_score: postureScoreStr,
+                status: auditStatus
             };
 
             lastLedgerData = mockPayload;
             
-            // Simple mock hash generation
+            // Generate deterministic mock hash based on payload content
             const str = JSON.stringify(mockPayload);
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
@@ -175,8 +203,8 @@
             const hexHash = "e3b0c442" + Math.abs(hash).toString(16) + "a9f8";
             hashDisplay.innerText = hexHash.substring(0, 16) + "...";
 
-            statusBadge.className = "text-xs px-2.5 py-1 rounded-md font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-            statusBadge.innerText = "Audit Passed";
+            statusBadge.className = statusBadgeClass;
+            statusBadge.innerText = badgeText;
             toolbar.style.opacity = "1";
             toolbar.style.pointerEvents = "auto";
             runBtn.disabled = false;
