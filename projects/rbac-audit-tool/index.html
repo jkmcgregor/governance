@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAM RBAC & Least Privilege Audit Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Automated RBAC & Least Privilege Access Audit</h1>
+            <p class="text-sm text-gray-500 mt-2">Client-side diagnostic engine mapping to SOC 2 CC6.1 & ISO 27001 A.9.2</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8 flex justify-between items-center">
+            <div>
+                <button id="runDemoBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-sm transition-colors mr-3">
+                    Run Audit on Demo Data
+                </button>
+                <label class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow-sm transition-colors cursor-pointer border border-gray-300">
+                    Upload CSV
+                    <input type="file" id="csvUpload" accept=".csv" class="hidden">
+                </label>
+            </div>
+            <div>
+                <button id="exportBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow-sm transition-colors hidden">
+                    Download Audit Evidence
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Metrics (Hidden by default) -->
+        <div id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 hidden">
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Identities Audited</h3>
+                <p id="metricTotal" class="text-4xl font-bold text-gray-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">Flagged Violations</h3>
+                <p id="metricViolations" class="text-4xl font-bold text-red-600 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">Overall Risk Score</h3>
+                <p id="metricRisk" class="text-4xl font-bold mt-2">0%</p>
+            </div>
+        </div>
+
+        <!-- Results Table (Hidden by default) -->
+        <div id="resultsSection" class="bg-white rounded-lg shadow-sm border border-gray-200 hidden overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h2 class="text-lg font-semibold text-gray-800">Violation Details</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Emp ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Violation Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Finding Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody" class="bg-white divide-y divide-gray-200 text-sm">
+                        <!-- JS injected rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo Data Template
+        const demoCSV = `EmployeeID,Name,Department,Roles,IsAdmin,LastLoginDate
+EMP001,Alice Smith,Engineering,Developer|Production Deployer,FALSE,2026-08-15
+EMP002,Bob Jones,Finance,Accounts Payable,FALSE,2025-10-01
+EMP003,Charlie Brown,Sales,Sales Rep,FALSE,2026-08-20
+EMP004,Diana Prince,Engineering,Developer,FALSE,2026-08-28
+EMP005,Eve Davis,Marketing,Marketing Manager,TRUE,2026-08-30
+EMP006,Frank Castle,Contractor,Guest,TRUE,2026-08-29
+EMP007,Grace Hopper,IT,System Administrator,TRUE,2026-03-15`;
+
+        let auditResults = [];
+
+        document.getElementById('runDemoBtn').addEventListener('click', () => runAudit(demoCSV));
+        
+        document.getElementById('csvUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) { runAudit(e.target.result); };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', exportEvidence);
+
+        function runAudit(csvData) {
+            const rows = csvData.trim().split('\n');
+            const headers = rows[0].split(',');
+            auditResults = [];
+            
+            let totalIdentities = rows.length - 1;
+            let violations = 0;
+            
+            const today = new Date(); // Uses browser's current date
+
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].split(',');
+                if(cols.length < 6) continue;
+
+                const emp = {
+                    id: cols[0].trim(),
+                    name: cols[1].trim(),
+                    dept: cols[2].trim(),
+                    roles: cols[3].trim().split('|'),
+                    isAdmin: cols[4].trim().toUpperCase() === 'TRUE',
+                    lastLogin: new Date(cols[5].trim())
+                };
+
+                let userViolations = [];
+
+                // Check 1: Stale Accounts (> 90 Days)
+                const diffTime = Math.abs(today - emp.lastLogin);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                if (diffDays > 90) {
+                    userViolations.push({ type: 'Stale Account', detail: `Last login was ${diffDays} days ago.` });
+                }
+
+                // Check 2: Separation of Duties (SoD)
+                if (emp.roles.includes('Developer') && emp.roles.includes('Production Deployer')) {
+                    userViolations.push({ type: 'SoD Violation', detail: 'Holds both Developer and Prod Deployer roles.' });
+                }
+
+                // Check 3: Excessive Admin Privilege
+                if (emp.isAdmin && emp.dept !== 'IT' && emp.dept !== 'Engineering') {
+                    userViolations.push({ type: 'Excessive Privilege', detail: `Admin rights assigned to non-technical Dept (${emp.dept}).` });
+                }
+
+                if (userViolations.length > 0) {
+                    violations++;
+                    userViolations.forEach(v => {
+                        auditResults.push({ ...emp, violation: v });
+                    });
+                }
+            }
+
+            updateDashboard(totalIdentities, violations);
+            renderTable(auditResults);
+        }
+
+        function updateDashboard(total, violations) {
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('exportBtn').classList.remove('hidden');
+
+            document.getElementById('metricTotal').innerText = total;
+            document.getElementById('metricViolations').innerText = violations;
+            
+            const riskRatio = Math.round((violations / total) * 100) || 0;
+            const riskEl = document.getElementById('metricRisk');
+            riskEl.innerText = riskRatio + '%';
+            
+            riskEl.className = 'text-4xl font-bold mt-2 ' + 
+                (riskRatio > 20 ? 'text-red-600' : riskRatio > 5 ? 'text-yellow-600' : 'text-green-600');
+        }
+
+        function renderTable(results) {
+            const tbody = document.getElementById('resultsBody');
+            tbody.innerHTML = '';
+            
+            if (results.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No violations found. Clean audit!</td></tr>`;
+                return;
+            }
+
+            results.forEach(res => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap font-mono text-gray-600">${res.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${res.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-500">${res.dept}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            ${res.violation.type}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">${res.violation.detail}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function exportEvidence() {
+            if(auditResults.length === 0) return alert("No findings to export.");
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "EmpID,Name,Department,ViolationType,Detail\n";
+            
+            auditResults.forEach(r => {
+                csvContent += `${r.id},${r.name},${r.dept},${r.violation.type},"${r.violation.detail}"\n`;
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `IAM_Audit_Evidence_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
