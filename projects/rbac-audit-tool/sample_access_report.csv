@@ -1,0 +1,8 @@
+EmployeeID,Name,Department,Roles,IsAdmin,LastLoginDate
+EMP001,Alice Smith,Engineering,Developer|Production Deployer,FALSE,2026-08-15
+EMP002,Bob Jones,Finance,Accounts Payable,FALSE,2025-10-01
+EMP003,Charlie Brown,Sales,Sales Rep,FALSE,2026-08-20
+EMP004,Diana Prince,Engineering,Developer,FALSE,2026-08-28
+EMP005,Eve Davis,Marketing,Marketing Manager,TRUE,2026-08-30
+EMP006,Frank Castle,Contractor,Guest,TRUE,2026-08-29
+EMP007,Grace Hopper,IT,System Administrator,TRUE,2026-03-15
