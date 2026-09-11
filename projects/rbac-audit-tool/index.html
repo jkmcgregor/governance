@@ -3,302 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated RBAC & Least Privilege Access Audit Tool | Jaina McGregor GRC Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Jaina McGregor | IT Governance, Risk Management & Systems Auditing</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #2563eb;
+            --accent-soft: #eff6ff;
+            --success: #16a34a;
+            --success-soft: #f0fdf4;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --radius: 10px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 1.5rem; }
+        header { background-color: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .brand { font-size: 1.2rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .brand span { color: var(--accent); font-weight: 500; }
+        nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.5rem; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        nav a:hover { color: var(--accent); }
+        .hero { padding: 4.5rem 0 3.5rem 0; background-color: var(--bg-card); border-bottom: 1px solid var(--border); }
+        .hero-name { font-size: 3.5rem; color: var(--primary); line-height: 1.1; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.03em; }
+        .hero-title { font-size: 1.5rem; color: var(--accent); font-weight: 600; margin-bottom: 1.25rem; letter-spacing: -0.01em; }
+        .hero-description { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 900px; line-height: 1.7; }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+        .tag { background-color: var(--accent-soft); color: var(--accent); padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; border: 1px solid #bfdbfe; }
+        section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+        .section-title { font-size: 1.75rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .section-subtitle { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+        .card h3 { color: var(--primary); margin-bottom: 0.75rem; font-size: 1.15rem; }
+        .card ul { list-style: none; }
+        .card li { position: relative; padding-left: 1.25rem; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.95rem; }
+        .card li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .case-study { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+        .case-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .case-title { font-size: 1.25rem; color: var(--primary); font-weight: 700; }
+        .case-badge { background: #f1f5f9; color: var(--primary-light); padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+        .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .case-block h5 { color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem; }
+        .case-block p { font-size: 0.95rem; color: var(--text-muted); }
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        footer { background: var(--primary); color: white; padding: 2.5rem 0; text-align: center; font-size: 0.9rem; }
+        footer a { color: #93c5fd; text-decoration: none; }
     </style>
 </head>
-<body class="text-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <div class="mb-6">
-            <a href="https://governance.jainamcgregor.com/" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1">
-                ← Back to GRC & AI Governance Portfolio
-            </a>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="brand">Jaina McGregor <span>| IT Governance & Systems Audit</span></a>
+            <nav>
+                <a href="#competencies">Competencies</a>
+                <a href="#experience">Governance & Auditing</a>
+                <a href="#case-studies">Case Studies</a>
+                <a href="#education">Education</a>
+            </nav>
         </div>
-
-        <header class="mb-8 border-b border-gray-200 pb-6">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase tracking-wider">Database Script & Python Utility</span>
-                    <h1 class="text-3xl font-bold text-gray-900 mt-2">Automated RBAC & Least Privilege Access Audit Tool</h1>
-                    <p class="text-sm text-gray-600 mt-1">Mapping to SOC 2 CC6.1 (Logical Access) & ISO 27001 A.9.2 (User Access Management)</p>
-                </div>
-                <div>
-                    <button id="viewSqlBtn" class="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded shadow-sm transition-colors flex items-center gap-2 text-sm">
-                        <span>📊 View Production SQL Source</span>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8 flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center gap-3 flex-wrap">
-                <button id="runDemoBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-sm transition-colors text-sm">
-                    Run Audit on Demo Data
-                </button>
-                <label class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow-sm transition-colors cursor-pointer border border-gray-300 text-sm">
-                    Upload Custom CSV
-                    <input type="file" id="csvUpload" accept=".csv" class="hidden">
-                </label>
-            </div>
-            <div>
-                <button id="exportBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded shadow-sm transition-colors hidden text-sm">
-                    Download Audit Evidence (CSV)
-                </button>
-            </div>
-        </div>
-
-        <div id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 hidden">
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Total Identities Audited</h3>
-                <p id="metricTotal" class="text-4xl font-bold text-gray-900 mt-2">0</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Flagged Violations</h3>
-                <p id="metricViolations" class="text-4xl font-bold text-red-600 mt-2">0</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Overall Risk Score</h3>
-                <p id="metricRisk" class="text-4xl font-bold mt-2">0%</p>
-            </div>
-        </div>
-
-        <div id="resultsSection" class="bg-white rounded-lg shadow-sm border border-gray-200 hidden overflow-hidden mb-12">
-            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                <h2 class="text-base font-semibold text-gray-800">Violation Details & Compliance Telemetry</h2>
-                <span class="text-xs text-gray-500 font-mono">Continuous Controls Monitoring (CCM)</span>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Emp ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Violation Type</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Finding Detail</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resultsBody" class="bg-white divide-y divide-gray-200 text-sm">
-                        </tbody>
-                </table>
+    </header>
+    <div class="hero">
+        <div class="container">
+            <h1 class="hero-name">Jaina McGregor</h1>
+            <h2 class="hero-title">IT Project Manager & Systems Audit Professional</h2>
+            <p class="hero-description">
+                Ensuring 100% system integrity, rigorous operational governance, and structured risk mitigation across enterprise digital transformations. 
+                Specializing in forensic data access audits, software development lifecycle (SDLC) optimization, change management, and regulatory compliance oversight.
+            </p>
+            <div class="hero-tags">
+                <span class="tag">IT Governance & SDLC</span>
+                <span class="tag">Systems Auditing & Access Controls</span>
+                <span class="tag">Change Management & Regression Testing</span>
+                <span class="tag">Six Sigma Process Quality (SSYB)</span>
+                <span class="tag">ISACA Professional Standards Awareness</span>
             </div>
         </div>
     </div>
-
-    <div id="sqlModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="px-6 py-4 bg-gray-900 text-white flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-lg">Production SQL Telemetry & Audit Verification Scripts</h3>
-                    <p class="text-xs text-gray-400">Enterprise data warehouse queries (Snowflake / PostgreSQL / SQL Server)</p>
+    <section id="competencies">
+        <div class="container">
+            <h2 class="section-title">Governance & Audit Core Competencies</h2>
+            <p class="section-subtitle">Bridging technical execution with strict administrative control and operational maturity.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>IT Governance & SDLC</h3>
+                    <ul>
+                        <li>Software Development Lifecycle (SDLC) Optimization</li>
+                        <li>Change Control & Release Readiness Governance</li>
+                        <li>Cross-Functional Stakeholder Alignment</li>
+                        <li>Technical Requirements Traceability</li>
+                        <li>Milestone Tracking & Scope Management</li>
+                    </ul>
                 </div>
-                <button id="closeModalBtn" class="text-gray-400 hover:text-white font-bold text-xl px-2">&times;</button>
-            </div>
-            <div class="p-6 overflow-y-auto space-y-6 bg-gray-50 text-sm">
-                
-                <div>
-                    <h4 class="font-semibold text-gray-900 mb-2">1. Separation of Duties (SoD) Violation Check</h4>
-                    <p class="text-xs text-gray-600 mb-2">Identifies users holding toxic permission combinations (e.g., Software Engineering + Production Deployment rights).</p>
-                    <pre class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs overflow-x-auto"><code>SELECT 
-    EmployeeID, 
-    Name, 
-    Department, 
-    Roles
-FROM 
-    iam_user_access_logs
-WHERE 
-    Roles LIKE '%Developer%' 
-    AND Roles LIKE '%Production Deployer%';</code></pre>
+                <div class="card">
+                    <h3>Systems Auditing & Controls</h3>
+                    <ul>
+                        <li>Forensic Data Access Protocol Auditing</li>
+                        <li>User Permissions & Access Control Review</li>
+                        <li>Quality Assurance & Regression Testing Strategy</li>
+                        <li>Data Movement Integrity & Error Reduction</li>
+                        <li>Process Standardization & Runbook Design</li>
+                    </ul>
                 </div>
-
-                <div>
-                    <h4 class="font-semibold text-gray-900 mb-2">2. Stale / Inactive Accounts Audit (>90 Days)</h4>
-                    <p class="text-xs text-gray-600 mb-2">Flags accounts violating identity lifecycle rules that have not authenticated within a 90-day window.</p>
-                    <pre class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs overflow-x-auto"><code>SELECT 
-    EmployeeID, 
-    Name, 
-    Department, 
-    LastLoginDate,
-    CURRENT_DATE - LastLoginDate AS DaysInactive
-FROM 
-    iam_user_access_logs
-WHERE 
-    LastLoginDate < CURRENT_DATE - INTERVAL '90 days'
-    AND AccountStatus = 'Active';</code></pre>
+                <div class="card">
+                    <h3>Methodologies & Standards</h3>
+                    <ul>
+                        <li>Lean Six Sigma Methodologies (SSYB)</li>
+                        <li>Enterprise ERP & HRIS Transformation Control</li>
+                        <li>IT Audit Industry Standards (ISACA Awareness)</li>
+                        <li>Structured Risk Mitigation Strategy</li>
+                        <li>Operational Performance Metrics Tracking</li>
+                    </ul>
                 </div>
-
-                <div>
-                    <h4 class="font-semibold text-gray-900 mb-2">3. Excessive Privilege Escalation Check</h4>
-                    <p class="text-xs text-gray-600 mb-2">Ensures administrative access is restricted exclusively to authorized technical and security personnel.</p>
-                    <pre class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs overflow-x-auto"><code>SELECT 
-    EmployeeID, 
-    Name, 
-    Department, 
-    IsAdmin
-FROM 
-    iam_user_access_logs
-WHERE 
-    IsAdmin = TRUE 
-    AND Department NOT IN ('IT', 'Engineering', 'Security');</code></pre>
-                </div>
-
-            </div>
-            <div class="px-6 py-4 bg-gray-100 border-t border-gray-200 flex justify-end">
-                <button id="closeModalFooterBtn" class="bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold py-2 px-4 rounded transition-colors">
-                    Close Window
-                </button>
             </div>
         </div>
-    </div>
-
+    </section>
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Governance & Controls Experience</h2>
+            <p class="section-subtitle">Key professional milestones demonstrating administrative oversight and audit execution.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Blizzard Entertainment</h3>
+                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">HRIS Project Management Intern</p>
+                    <ul>
+                        <li>Led a forensic audit of HRIS data access protocols to reduce downstream errors[cite: 2, 5].</li>
+                        <li>Presented data-driven mitigation strategies and findings directly to senior management[cite: 2, 5].</li>
+                        <li>Evaluated Applicant Tracking Systems (ATS) for organizational implementation[cite: 3].</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>City of Albuquerque</h3>
+                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">ERP Business Process Lead</p>
+                    <ul>
+                        <li>Directed a 15-month PeopleSoft transformation ensuring strict operational control[cite: 2, 5].</li>
+                        <li>Designed and executed robust regression testing strategies for zero downtime during critical patching cycles[cite: 1, 2, 5].</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>WiseTech Global / Trinium</h3>
+                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">Systems Architect & Project Manager</p>
+                    <ul>
+                        <li>Ensured 100% data movement integrity across global client portfolios[cite: 2, 5].</li>
+                        <li>Managed compliance-sensitive EDI connections for Tier-1 logistics partners[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="case-studies" style="background-color: var(--bg-card);">
+        <div class="container">
+            <h2 class="section-title">Enterprise Governance Case Studies</h2>
+            <p class="section-subtitle">Real-world examples highlighting risk reduction, controls enforcement, and operational oversight.</p>
+            <div class="case-study">
+                <div class="case-header">
+                    <div class="case-title">HRIS Data Access Protocol Audit & Risk Mitigation</div>
+                    <span class="case-badge">Systems Auditing & Access Control</span>
+                </div>
+                <p>Conducted a detailed forensic examination of human resources information system access privileges within a Fortune 500 gaming enterprise environment[cite: 2, 5].</p>
+                <div class="case-grid">
+                    <div class="case-block">
+                        <h5>The Challenge</h5>
+                        <p>Legacy permission structures and downstream reporting errors created risks regarding data visibility and administrative accuracy.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Audit Approach</h5>
+                        <p>Executed systematic forensic evaluations of access control logs, mapped user role distributions, and identified authorization discrepancies.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Outcome</h5>
+                        <p>Successfully presented data-driven mitigation recommendations to senior executives, establishing tighter access protocols and reducing operational error rates[cite: 2, 5].</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study">
+                <div class="case-header">
+                    <div class="case-title">Municipal ERP Patch Governance & Zero-Downtime Control</div>
+                    <span class="case-badge">IT Governance & Change Management</span>
+                </div>
+                <p>Managed structured release governance and regression testing protocols during high-stakes enterprise software patching cycles[cite: 1, 2, 5].</p>
+                <div class="case-grid">
+                    <div class="case-block">
+                        <h5>The Challenge</h5>
+                        <p>Critical system patches carried high risk of disrupting municipal administrative workflows, financial tracking, and employee learning management systems.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Audit Approach</h5>
+                        <p>Engineered comprehensive regression testing scripts and milestone validation checks to ensure complete system stability prior to production deployment.</p>
+                    </div>
+                    <div class="case-block">
+                        <h5>The Outcome</h5>
+                        <p>Achieved 100% system uptime during critical patching cycles, protecting public sector operational continuity and audit compliance[cite: 1, 2, 5].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Academic & Professional Credentials</h2>
+            <p class="section-subtitle">Grounded in business information systems, technical project leadership, and process quality standards.</p>
+            <div class="edu-grid">
+                <div class="card">
+                    <h3>Graduate Education</h3>
+                    <p style="font-weight: 600; color: var(--primary);">M.S. in Leadership</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Concentration in Leading & Managing Technical Projects</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Northeastern University[cite: 1, 2]</p>
+                </div>
+                <div class="card">
+                    <h3>Undergraduate Education</h3>
+                    <p style="font-weight: 600; color: var(--primary);">B.S. in Business Information Systems</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">College of Business</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Oregon State University[cite: 1, 2]</p>
+                </div>
+                <div class="card">
+                    <h3>Certifications & Affiliations</h3>
+                    <p style="font-weight: 600; color: var(--primary);">Six Sigma Yellow Belt (SSYB)</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Certified Professional Practitioner[cite: 2]</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Member: ISACA[cite: 1] | Alpha Kappa Psi[cite: 1]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="copyrightYear"></span> Jaina McGregor. IT Governance, Systems Audit & Risk Management.</p>
+        </div>
+    </footer>
     <script>
-        // Demo Data Template
-        const demoCSV = `EmployeeID,Name,Department,Roles,IsAdmin,LastLoginDate
-EMP001,Alice Smith,Engineering,Developer|Production Deployer,FALSE,2026-06-15
-EMP002,Bob Jones,Finance,Accounts Payable,FALSE,2025-10-01
-EMP003,Charlie Brown,Sales,Sales Rep,FALSE,2026-08-20
-EMP004,Diana Prince,Engineering,Developer,FALSE,2026-08-28
-EMP005,Eve Davis,Marketing,Marketing Manager,TRUE,2026-08-30
-EMP006,Frank Castle,Contractor,Guest,TRUE,2026-08-29
-EMP007,Grace Hopper,IT,System Administrator,TRUE,2026-03-15`;
-
-        let auditResults = [];
-
-        // Modal Elements Control
-        const sqlModal = document.getElementById('sqlModal');
-        document.getElementById('viewSqlBtn').addEventListener('click', () => sqlModal.classList.remove('hidden'));
-        document.getElementById('closeModalBtn').addEventListener('click', () => sqlModal.classList.add('hidden'));
-        document.getElementById('closeModalFooterBtn').addEventListener('click', () => sqlModal.classList.add('hidden'));
-        sqlModal.addEventListener('click', (e) => { if (e.target === sqlModal) sqlModal.classList.add('hidden'); });
-
-        // Audit Engine Controls
-        document.getElementById('runDemoBtn').addEventListener('click', () => runAudit(demoCSV));
-        
-        document.getElementById('csvUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) { runAudit(e.target.result); };
-            reader.readAsText(file);
-        });
-
-        document.getElementById('exportBtn').addEventListener('click', exportEvidence);
-
-        function runAudit(csvData) {
-            const rows = csvData.trim().split('\n');
-            auditResults = [];
-            
-            let totalIdentities = rows.length - 1;
-            let violations = 0;
-            const today = new Date(); // Evaluates against current environment time
-
-            for (let i = 1; i < rows.length; i++) {
-                const cols = rows[i].split(',');
-                if(cols.length < 6) continue;
-
-                const emp = {
-                    id: cols[0].trim(),
-                    name: cols[1].trim(),
-                    dept: cols[2].trim(),
-                    roles: cols[3].trim().split('|'),
-                    isAdmin: cols[4].trim().toUpperCase() === 'TRUE',
-                    lastLogin: new Date(cols[5].trim())
-                };
-
-                let userViolations = [];
-
-                // Check 1: Stale Accounts (> 90 Days)
-                const diffTime = Math.abs(today - emp.lastLogin);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                if (diffDays > 90) {
-                    userViolations.push({ type: 'Stale Account', detail: `Last login was ${diffDays} days ago (>90 threshold).` });
-                }
-
-                // Check 2: Separation of Duties (SoD)
-                if (emp.roles.includes('Developer') && emp.roles.includes('Production Deployer')) {
-                    userViolations.push({ type: 'SoD Violation', detail: 'Holds toxic combination of Developer and Prod Deployer roles.' });
-                }
-
-                // Check 3: Excessive Admin Privilege
-                if (emp.isAdmin && emp.dept !== 'IT' && emp.dept !== 'Engineering' && emp.dept !== 'Security') {
-                    userViolations.push({ type: 'Excessive Privilege', detail: `Admin rights assigned to non-technical department (${emp.dept}).` });
-                }
-
-                if (userViolations.length > 0) {
-                    violations++;
-                    userViolations.forEach(v => {
-                        auditResults.push({ ...emp, violation: v });
-                    });
-                }
-            }
-
-            updateDashboard(totalIdentities, violations);
-            renderTable(auditResults);
-        }
-
-        function updateDashboard(total, violations) {
-            document.getElementById('dashboard').classList.remove('hidden');
-            document.getElementById('resultsSection').classList.remove('hidden');
-            document.getElementById('exportBtn').classList.remove('hidden');
-
-            document.getElementById('metricTotal').innerText = total;
-            document.getElementById('metricViolations').innerText = violations;
-            
-            const riskRatio = Math.round((violations / total) * 100) || 0;
-            const riskEl = document.getElementById('metricRisk');
-            riskEl.innerText = riskRatio + '%';
-            
-            riskEl.className = 'text-4xl font-bold mt-2 ' + 
-                (riskRatio > 20 ? 'text-red-600' : riskRatio > 5 ? 'text-amber-600' : 'text-emerald-600');
-        }
-
-        function renderTable(results) {
-            const tbody = document.getElementById('resultsBody');
-            tbody.innerHTML = '';
-            
-            if (results.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No violations found. Clean audit record!</td></tr>`;
-                return;
-            }
-
-            results.forEach(res => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap font-mono text-xs text-gray-600">${res.id}</td>
-                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${res.name}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-500">${res.dept}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2.5 py-1 inline-flex text-xs leading-4 font-semibold rounded-full bg-red-100 text-red-800">
-                            ${res.violation.type}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 text-gray-600 text-xs">${res.violation.detail}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function exportEvidence() {
-            if(auditResults.length === 0) return alert("No audit findings available to export.");
-            
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "EmpID,Name,Department,ViolationType,Detail\n";
-            
-            auditResults.forEach(r => {
-                csvContent += `${r.id},${r.name},${r.dept},${r.violation.type},"${r.violation.detail}"\n`;
-            });
-            
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `IAM_Audit_Evidence_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
