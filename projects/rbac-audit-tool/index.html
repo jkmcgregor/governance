@@ -3,242 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jaina McGregor | IT Governance, Risk Management & Systems Auditing</title>
+    <title>J. McGregor | Governance, Risk & Compliance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary: #0f172a;
-            --primary-light: #1e293b;
-            --accent: #2563eb;
-            --accent-soft: #eff6ff;
-            --success: #16a34a;
-            --success-soft: #f0fdf4;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --radius: 10px;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; }
-        .container { max-width: 1150px; margin: 0 auto; padding: 0 1.5rem; }
-        header { background-color: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .brand { font-size: 1.2rem; font-weight: 700; color: var(--primary); text-decoration: none; }
-        .brand span { color: var(--accent); font-weight: 500; }
-        nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.5rem; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
-        nav a:hover { color: var(--accent); }
-        .hero { padding: 4.5rem 0 3.5rem 0; background-color: var(--bg-card); border-bottom: 1px solid var(--border); }
-        .hero-name { font-size: 3.5rem; color: var(--primary); line-height: 1.1; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.03em; }
-        .hero-title { font-size: 1.5rem; color: var(--accent); font-weight: 600; margin-bottom: 1.25rem; letter-spacing: -0.01em; }
-        .hero-description { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 900px; line-height: 1.7; }
-        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
-        .tag { background-color: var(--accent-soft); color: var(--accent); padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; border: 1px solid #bfdbfe; }
-        section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
-        .section-title { font-size: 1.75rem; color: var(--primary); margin-bottom: 0.5rem; }
-        .section-subtitle { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
-        .card h3 { color: var(--primary); margin-bottom: 0.75rem; font-size: 1.15rem; }
-        .card ul { list-style: none; }
-        .card li { position: relative; padding-left: 1.25rem; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.95rem; }
-        .card li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
-        .case-study { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
-        .case-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
-        .case-title { font-size: 1.25rem; color: var(--primary); font-weight: 700; }
-        .case-badge { background: #f1f5f9; color: var(--primary-light); padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
-        .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .case-block h5 { color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem; }
-        .case-block p { font-size: 0.95rem; color: var(--text-muted); }
-        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        footer { background: var(--primary); color: white; padding: 2.5rem 0; text-align: center; font-size: 0.9rem; }
-        footer a { color: #93c5fd; text-decoration: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="brand">Jaina McGregor <span>| IT Governance & Systems Audit</span></a>
-            <nav>
-                <a href="#competencies">Competencies</a>
-                <a href="#experience">Governance & Auditing</a>
-                <a href="#case-studies">Case Studies</a>
-                <a href="#education">Education</a>
-            </nav>
+<body class="bg-slate-100 text-slate-800 antialiased leading-relaxed">
+
+    <header class="bg-slate-900 border-b-4 border-teal-600 py-16 shadow-md">
+        <div class="max-w-4xl mx-auto px-6 md:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">J. McGregor</h1>
+            <p class="text-xl text-teal-400 mt-3 font-medium tracking-wide uppercase text-sm">Governance, Risk & Compliance</p>
+            <p class="mt-4 text-slate-300 max-w-2xl text-lg">
+                Ensuring 100% system integrity, data governance, and operational compliance. Leveraging Lean Six Sigma and OKR frameworks to align infrastructure with regulatory and strategic benchmarks.
+            </p>
         </div>
     </header>
-    <div class="hero">
-        <div class="container">
-            <h1 class="hero-name">Jaina McGregor</h1>
-            <h2 class="hero-title">IT Project Manager & Systems Audit Professional</h2>
-            <p class="hero-description">
-                Ensuring 100% system integrity, rigorous operational governance, and structured risk mitigation across enterprise digital transformations. 
-                Specializing in forensic data access audits, software development lifecycle (SDLC) optimization, change management, and regulatory compliance oversight.
-            </p>
-            <div class="hero-tags">
-                <span class="tag">IT Governance & SDLC</span>
-                <span class="tag">Systems Auditing & Access Controls</span>
-                <span class="tag">Change Management & Regression Testing</span>
-                <span class="tag">Six Sigma Process Quality (SSYB)</span>
-                <span class="tag">ISACA Professional Standards Awareness</span>
+
+    <main class="max-w-4xl mx-auto px-6 md:px-8 py-12 space-y-16">
+        
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-8">Compliance & Audit Experience</h2>
+            <div class="space-y-8">
+                
+                <div class="bg-white p-8 border border-slate-300 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-teal-600"></div>
+                    <h3 class="text-xl font-bold text-slate-900">HRIS Project Management Intern (Data Audit)</h3>
+                    <p class="text-sm font-semibold text-teal-700 mt-1 mb-4">Blizzard Entertainment | 2014 – 2015</p>
+                    <ul class="list-disc list-inside text-slate-700 text-sm space-y-2">
+                        <li>Led a forensic audit of HRIS data access protocols to reduce downstream errors and identify security vulnerabilities.</li>
+                        <li>Presented data-driven compliance mitigation strategies directly to senior management.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 border border-slate-300 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-slate-400"></div>
+                    <h3 class="text-xl font-bold text-slate-900">ERP Business Process Analyst II</h3>
+                    <p class="text-sm font-semibold text-teal-700 mt-1 mb-4">City of Albuquerque | Sept 2024 – Dec 2025</p>
+                    <ul class="list-disc list-inside text-slate-700 text-sm space-y-2">
+                        <li>Re-engineered workflows and diagnosed complex production errors to achieve zero downtime during critical patching cycles.</li>
+                        <li>Ensured operational integrity for the municipal PeopleSoft ELM and Travel & Expense transformation over a 15-month engagement.</li>
+                    </ul>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <section id="competencies">
-        <div class="container">
-            <h2 class="section-title">Governance & Audit Core Competencies</h2>
-            <p class="section-subtitle">Bridging technical execution with strict administrative control and operational maturity.</p>
-            
-            <div class="grid-3">
-                <div class="card">
-                    <h3>IT Governance & SDLC</h3>
-                    <ul>
-                        <li>Software Development Lifecycle (SDLC) Optimization</li>
-                        <li>Change Control & Release Readiness Governance</li>
-                        <li>Cross-Functional Stakeholder Alignment</li>
-                        <li>Technical Requirements Traceability</li>
-                        <li>Milestone Tracking & Scope Management</li>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-8">Frameworks & Methodologies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-4 border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-2">Process Optimization</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>Lean Six Sigma (SSYB)</li>
+                        <li>Lean Six Sigma White Belt</li>
+                        <li>Business Process Re-engineering (BPR)</li>
                     </ul>
                 </div>
-                <div class="card">
-                    <h3>Systems Auditing & Controls</h3>
-                    <ul>
-                        <li>Forensic Data Access Protocol Auditing</li>
-                        <li>User Permissions & Access Control Review</li>
-                        <li>Quality Assurance & Regression Testing Strategy</li>
-                        <li>Data Movement Integrity & Error Reduction</li>
-                        <li>Process Standardization & Runbook Design</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Methodologies & Standards</h3>
-                    <ul>
-                        <li>Lean Six Sigma Methodologies (SSYB)</li>
-                        <li>Enterprise ERP & HRIS Transformation Control</li>
-                        <li>IT Audit Industry Standards (ISACA Awareness)</li>
-                        <li>Structured Risk Mitigation Strategy</li>
-                        <li>Operational Performance Metrics Tracking</li>
+                <div class="bg-slate-50 p-4 border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-2">Governance & Strategy</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>OKR Frameworks with AI Certified</li>
+                        <li>Change Management</li>
+                        <li>Operational Maturity Modeling</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="experience">
-        <div class="container">
-            <h2 class="section-title">Governance & Controls Experience</h2>
-            <p class="section-subtitle">Key professional milestones demonstrating administrative oversight and audit execution.</p>
-            
-            <div class="grid-3">
-                <div class="card">
-                    <h3>Blizzard Entertainment</h3>
-                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">HRIS Project Management Intern</p>
-                    <ul>
-                        <li>Led a forensic audit of HRIS data access protocols to reduce downstream errors[cite: 2, 5].</li>
-                        <li>Presented data-driven mitigation strategies and findings directly to senior management[cite: 2, 5].</li>
-                        <li>Evaluated Applicant Tracking Systems (ATS) for organizational implementation[cite: 3].</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>City of Albuquerque</h3>
-                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">ERP Business Process Lead</p>
-                    <ul>
-                        <li>Directed a 15-month PeopleSoft transformation ensuring strict operational control[cite: 2, 5].</li>
-                        <li>Designed and executed robust regression testing strategies for zero downtime during critical patching cycles[cite: 1, 2, 5].</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>WiseTech Global / Trinium</h3>
-                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">Systems Architect & Project Manager</p>
-                    <ul>
-                        <li>Ensured 100% data movement integrity across global client portfolios[cite: 2, 5].</li>
-                        <li>Managed compliance-sensitive EDI connections for Tier-1 logistics partners[cite: 3].</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="case-studies" style="background-color: var(--bg-card);">
-        <div class="container">
-            <h2 class="section-title">Enterprise Governance Case Studies</h2>
-            <p class="section-subtitle">Real-world examples highlighting risk reduction, controls enforcement, and operational oversight.</p>
-            <div class="case-study">
-                <div class="case-header">
-                    <div class="case-title">HRIS Data Access Protocol Audit & Risk Mitigation</div>
-                    <span class="case-badge">Systems Auditing & Access Control</span>
-                </div>
-                <p>Conducted a detailed forensic examination of human resources information system access privileges within a Fortune 500 gaming enterprise environment[cite: 2, 5].</p>
-                <div class="case-grid">
-                    <div class="case-block">
-                        <h5>The Challenge</h5>
-                        <p>Legacy permission structures and downstream reporting errors created risks regarding data visibility and administrative accuracy.</p>
-                    </div>
-                    <div class="case-block">
-                        <h5>The Audit Approach</h5>
-                        <p>Executed systematic forensic evaluations of access control logs, mapped user role distributions, and identified authorization discrepancies.</p>
-                    </div>
-                    <div class="case-block">
-                        <h5>The Outcome</h5>
-                        <p>Successfully presented data-driven mitigation recommendations to senior executives, establishing tighter access protocols and reducing operational error rates[cite: 2, 5].</p>
-                    </div>
-                </div>
-            </div>
-            <div class="case-study">
-                <div class="case-header">
-                    <div class="case-title">Municipal ERP Patch Governance & Zero-Downtime Control</div>
-                    <span class="case-badge">IT Governance & Change Management</span>
-                </div>
-                <p>Managed structured release governance and regression testing protocols during high-stakes enterprise software patching cycles[cite: 1, 2, 5].</p>
-                <div class="case-grid">
-                    <div class="case-block">
-                        <h5>The Challenge</h5>
-                        <p>Critical system patches carried high risk of disrupting municipal administrative workflows, financial tracking, and employee learning management systems.</p>
-                    </div>
-                    <div class="case-block">
-                        <h5>The Audit Approach</h5>
-                        <p>Engineered comprehensive regression testing scripts and milestone validation checks to ensure complete system stability prior to production deployment.</p>
-                    </div>
-                    <div class="case-block">
-                        <h5>The Outcome</h5>
-                        <p>Achieved 100% system uptime during critical patching cycles, protecting public sector operational continuity and audit compliance[cite: 1, 2, 5].</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="education">
-        <div class="container">
-            <h2 class="section-title">Academic & Professional Credentials</h2>
-            <p class="section-subtitle">Grounded in business information systems, technical project leadership, and process quality standards.</p>
-            <div class="edu-grid">
-                <div class="card">
-                    <h3>Graduate Education</h3>
-                    <p style="font-weight: 600; color: var(--primary);">M.S. in Leadership</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Concentration in Leading & Managing Technical Projects</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Northeastern University[cite: 1, 2]</p>
-                </div>
-                <div class="card">
-                    <h3>Undergraduate Education</h3>
-                    <p style="font-weight: 600; color: var(--primary);">B.S. in Business Information Systems</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">College of Business</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Oregon State University[cite: 1, 2]</p>
-                </div>
-                <div class="card">
-                    <h3>Certifications & Affiliations</h3>
-                    <p style="font-weight: 600; color: var(--primary);">Six Sigma Yellow Belt (SSYB)</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Certified Professional Practitioner[cite: 2]</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Member: ISACA[cite: 1] | Alpha Kappa Psi[cite: 1]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="copyrightYear"></span> Jaina McGregor. IT Governance, Systems Audit & Risk Management.</p>
-        </div>
-    </footer>
-    <script>
-        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-    </script>
+        </section>
+
+    </main>
 </body>
 </html>
