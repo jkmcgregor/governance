@@ -3,76 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J. McGregor | Governance, Risk & Compliance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Jaina McGregor | GRC Cybersecurity & AI Governance Automation</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary: #0f172a; --primary-light: #1e293b; --accent: #2563eb; --accent-glow: #3b82f6;
+            --accent-soft: #eff6ff; --success: #16a34a; --success-soft: #f0fdf4; --warning: #d97706;
+            --text-main: #0f172a; --text-muted: #475569; --bg-main: #f8fafc; --bg-card: #ffffff;
+            --border: #e2e8f0; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); --radius: 10px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 1.5rem; }
+        header { background-color: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .brand { font-size: 1.2rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .brand span { color: var(--accent); font-weight: 500; }
+        nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.5rem; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        nav a:hover { color: var(--accent); }
+        .hero { padding: 4.5rem 0 3.5rem 0; background-color: var(--bg-card); border-bottom: 1px solid var(--border); }
+        .hero-name { font-size: 3.5rem; color: var(--primary); line-height: 1.1; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.03em; }
+        .hero-title { font-size: 1.5rem; color: var(--accent); font-weight: 600; margin-bottom: 1.25rem; letter-spacing: -0.01em; }
+        .hero-description { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 900px; line-height: 1.7; }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+        .tag { background-color: var(--accent-soft); color: var(--accent); padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; border: 1px solid #bfdbfe; }
+        .hero-banner { background: #0f172a; color: #ffffff; border-left: 4px solid var(--accent); padding: 1.5rem; border-radius: 0 var(--radius) var(--radius) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .hero-banner-text h3 { font-size: 1.1rem; color: #ffffff; margin-bottom: 0.25rem; }
+        .hero-banner-text p { font-size: 0.95rem; color: #94a3b8; }
+        .btn-primary { background: var(--accent); color: #ffffff; padding: 0.75rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary:hover { background: #1d4ed8; }
+        section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+        .section-title { font-size: 1.75rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .section-subtitle { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+        .card h3 { color: var(--primary); margin-bottom: 0.75rem; font-size: 1.15rem; }
+        .card ul { list-style: none; }
+        .card li { position: relative; padding-left: 1.25rem; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.95rem; }
+        .card li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .prototype-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .prototype-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08); }
+        .badge-dev { background: #fef3c7; color: #b45309; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; align-self: flex-start; margin-bottom: 0.75rem; }
+        .badge-live { background: var(--success-soft); color: var(--success); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; align-self: flex-start; margin-bottom: 0.75rem; }
+        .prototype-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .prototype-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+        .tech-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+        .tech-pill { background: #f1f5f9; color: #334155; font-size: 0.8rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: monospace; }
+        .prototype-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+        .link-github { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+        .link-github:hover { color: var(--accent); text-decoration: underline; }
+        .artifact-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 2rem; }
+        .bpmn-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; overflow-x: auto; }
+        .bpmn-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+        .toggle-btn { padding: 0.5rem 1rem; border: 1px solid #cbd5e1; background: #ffffff; color: #475569; font-weight: 600; font-size: 0.85rem; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .toggle-btn.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+        .flow-wrapper { display: none; align-items: center; gap: 0.75rem; min-width: 750px; }
+        .flow-wrapper.active { display: flex; }
+        .flow-step { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.75rem; display: flex; flex-direction: column; justify-content: center; min-width: 130px; text-align: center; }
+        .flow-step.error { background: #fef2f2; border-color: #fca5a5; color: #991b1b; }
+        .flow-step.success { background: #f0fdf4; border-color: #86efac; color: #166534; }
+        .flow-step.highlight { background: #eff6ff; border-color: #93c5fd; }
+        .step-title { font-size: 0.85rem; font-weight: 600; color: #0f172a; }
+        .step-sub { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+        .flow-arrow { color: #94a3b8; font-weight: bold; font-size: 1.1rem; }
+        .table-responsive { width: 100%; overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        th { background-color: #f1f5f9; color: var(--primary); padding: 0.75rem 1rem; font-weight: 600; border-bottom: 2px solid var(--border); }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        
+        /* CCM Dashboard Mock Styles */
+        .ccm-dashboard { background: #1e293b; color: #f8fafc; border-radius: var(--radius); padding: 1.5rem; font-family: monospace; }
+        .ccm-header { display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1rem; }
+        .ccm-row { display: grid; grid-template-columns: 1fr 3fr 1.5fr 1fr; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid #334155; font-size: 0.85rem; }
+        .ccm-status-pass { color: #4ade80; font-weight: bold; }
+        .ccm-status-fail { color: #f87171; font-weight: bold; }
+
+        .case-study { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+        .case-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .case-title { font-size: 1.25rem; color: var(--primary); font-weight: 700; }
+        .case-badge { background: #f1f5f9; color: var(--primary-light); padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+        .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .case-block h5 { color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem; }
+        .case-block p { font-size: 0.95rem; color: var(--text-muted); }
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        footer { background: var(--primary); color: white; padding: 2.5rem 0; text-align: center; font-size: 0.9rem; }
+        footer a { color: #93c5fd; text-decoration: none; }
+        @media (max-width: 768px) { .hero-name { font-size: 2.5rem; } .nav-container { flex-direction: column; height: auto; padding: 1rem 0; } nav a { margin: 0 0.5rem; } .ccm-row { grid-template-columns: 1fr; } }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased leading-relaxed">
-
-    <header class="bg-slate-900 border-b-4 border-teal-600 py-16 shadow-md">
-        <div class="max-w-4xl mx-auto px-6 md:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">J. McGregor</h1>
-            <p class="text-xl text-teal-400 mt-3 font-medium tracking-wide uppercase text-sm">Governance, Risk & Compliance</p>
-            <p class="mt-4 text-slate-300 max-w-2xl text-lg">
-                Ensuring 100% system integrity, data governance, and operational compliance. Leveraging Lean Six Sigma and OKR frameworks to align infrastructure with regulatory and strategic benchmarks.
-            </p>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="brand">Jaina McGregor <span>| GRC & AI Governance</span></a>
+            <nav>
+                <a href="#competencies">Competencies</a>
+                <a href="#prototypes">Prototypes</a>
+                <a href="#architecture">Architecture & Reports</a>
+                <a href="#case-studies">Case Studies</a>
+            </nav>
         </div>
     </header>
+    <div class="hero">
+        <div class="container">
+            <h1 class="hero-name">Jaina McGregor</h1>
+            <h2 class="hero-title">GRC Cybersecurity & AI Governance Automation Engineer</h2>
+            <p class="hero-description">Replacing manual sample testing and static spreadsheet audits with programmatically enforced compliance pipelines. Specializing in automated evidence collection, NIST AI Risk Management Framework (AI RMF) mapping, EU AI Act risk classification, and Continuous Controls Monitoring (CCM) via custom Python, Webhooks, and API integrations.</p>
+            <div class="hero-tags">
+                <span class="tag">NIST AI RMF 1.0 & CSF 2.0</span>
+                <span class="tag">EU AI Act Compliance</span>
+                <span class="tag">Automated Evidence Collection</span>
+                <span class="tag">Policy-as-Code (Python / Docker)</span>
+                <span class="tag">ISO 27001 & SOC 2 Type II</span>
+                <span class="tag">Continuous Controls Monitoring (CCM)</span>
+            </div>
+            <div class="hero-banner">
+                <div class="hero-banner-text">
+                    <h3>Core Philosophy: "Compliance as Code"</h3>
+                    <p>If a compliance requirement can be checked manually, it can be audited programmatically 24/7/365.</p>
+                </div>
+                <a href="#prototypes" class="btn-primary">Explore Interactive Demos →</a>
+            </div>
+        </div>
+    </div>
+    <section id="competencies">
+        <div class="container">
+            <h2 class="section-title">GRC & AI Governance Core Pillars</h2>
+            <p class="section-subtitle">Combining traditional enterprise risk management with modern dev-sec-ops automated compliance pipelines.</p>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>AI Compliance & Governance</h3>
+                    <ul><li>NIST AI RMF (GOVERN, MAP, MEASURE, MANAGE)</li><li>EU AI Act Risk Classification & System Cards</li><li>Algorithmic Bias & Data Transparency Auditing</li><li>Generative AI Acceptable Use Policy Enforcement</li><li>Model Inventory & Lineage Tracking Governance</li></ul>
+                </div>
+                <div class="card">
+                    <h3>Automated GRC & Policy-as-Code</h3>
+                    <ul><li>Automated API-based Audit Evidence Gathering</li><li>Continuous Controls Monitoring (CCM) Architecture</li><li>Python Scripting for Compliance Telemetry</li><li>Automated Vendor & Third-Party Risk Scoring</li><li>SQL-based Identity & Access Audit Verification</li></ul>
+                </div>
+                <div class="card">
+                    <h3>Cybersecurity Frameworks</h3>
+                    <ul><li>NIST CSF 2.0 / SP 800-53 Control Mapping</li><li>ISO/IEC 27001:2022 ISMS Governance</li><li>SOC 2 Type II Trust Services Criteria Auditing</li><li>Requirements Traceability Matrices (RTM)</li><li>Risk Register Engineering & Residual Risk Analysis</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="prototypes" style="background-color: var(--bg-card);">
+        <div class="container">
+            <h2 class="section-title">Working Prototypes & Proof of Concepts</h2>
+            <p class="section-subtitle">Demonstrating functional automation tools built to remove manual effort from GRC and AI Compliance workflows.</p>
+            <div class="grid-2">
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-live">Live Prototype</span>
+                        <div class="prototype-title">Automated EU AI Act & NIST AI RMF Risk Tiering Engine</div>
+                        <div class="prototype-desc">A lightweight Python microservice that ingests model documentation metadata, assesses systemic risk levels against EU AI Act annexes, and auto-generates structured System Cards and compliance gap reports.</div>
+                        <div class="tech-stack"><span class="tech-pill">Python</span><span class="tech-pill">JSON Schema</span><span class="tech-pill">Docker</span><span class="tech-pill">REST API</span></div>
+                    </div>
+                    <div class="prototype-actions">
+                        <a href="https://governance.jainamcgregor.com/projects/ai-grc-engine/" target="_blank" class="btn-primary" style="justify-content: center;">Explore Interactive Demo →</a>
+                    </div>
+                </div>
+                <div class="prototype-card">
+                    <div>
+                        <span class="badge-live">Live Prototype</span>
+                        <div class="prototype-title">Continuous Compliance & Audit Readiness Simulator (SOC 2 / ISO 27001)</div>
+                        <div class="prototype-desc">An interactive Client-Side Controls Monitoring (CCM) dashboard simulating automated REST telemetry polling, policy baseline evaluations, and cryptographic audit log generation.</div>
+                        <div class="tech-stack"><span class="tech-pill">Python</span><span class="tech-pill">SQL</span><span class="tech-pill">REST APIs</span></div>
+                    </div>
+                    <div class="prototype-actions">
+                        <a href="https://governance.jainamcgregor.com/projects/compliance-simulator/" target="_blank" class="btn-primary" style="justify-content: center;">Launch Live Application →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="architecture">
+        <div class="container">
+            <h2 class="section-title">Compliance Architecture & Sample Reports</h2>
+            <p class="section-subtitle">Visualizing how continuous control monitoring replaces point-in-time sampling (Mock Data Used).</p>
+            <div class="artifact-card">
+                <div class="bpmn-container">
+                    <div class="bpmn-toggle">
+                        <button id="btn-manual" class="toggle-btn active" onclick="switchFlowState('manual')">Traditional Manual Audit (Legacy)</button>
+                        <button id="btn-auto" class="toggle-btn" onclick="switchFlowState('auto')">Automated Continuous Compliance (Engineered)</button>
+                    </div>
+                    <div id="flow-manual" class="flow-wrapper active">
+                        <div class="flow-step error"><span class="step-title">Annual Audit Trigger</span><span class="step-sub">Point-in-Time</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step"><span class="step-title">Manual Screenshoting</span><span class="step-sub">High Effort / Slow</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step"><span class="step-title">Sample Data Verification</span><span class="step-sub">5% Population Check</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step error"><span class="step-title">Stale Audit Report</span><span class="step-sub">High Blindspot Risk</span></div>
+                    </div>
+                    <div id="flow-auto" class="flow-wrapper">
+                        <div class="flow-step success"><span class="step-title">Event-Driven Hook</span><span class="step-sub">Real-Time Telemetry</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step highlight"><span class="step-title">Python/API Validator</span><span class="step-sub">Automated Check</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step highlight"><span class="step-title">Immutable Log Store</span><span class="step-sub">100% Population</span></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step success"><span class="step-title">Continuous Dashboard</span><span class="step-sub">Zero Audit Friction</span></div>
+                    </div>
+                </div>
+            </div>
 
-    <main class="max-w-4xl mx-auto px-6 md:px-8 py-12 space-y-16">
-        
-        <section>
-            <h2 class="text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-8">Compliance & Audit Experience</h2>
-            <div class="space-y-8">
+            <!-- NEW SECTION: Sample Mock Report -->
+            <div class="artifact-card" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem;">Sample Deliverable: Continuous Controls Monitoring (CCM) Dashboard Output</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Example of an automated script output checking IAM and infrastructure controls in real-time (SOC 2 CC6.1 / ISO 27001 A.9.2.1).</p>
                 
-                <div class="bg-white p-8 border border-slate-300 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-teal-600"></div>
-                    <h3 class="text-xl font-bold text-slate-900">HRIS Project Management Intern (Data Audit)</h3>
-                    <p class="text-sm font-semibold text-teal-700 mt-1 mb-4">Blizzard Entertainment | 2014 – 2015</p>
-                    <ul class="list-disc list-inside text-slate-700 text-sm space-y-2">
-                        <li>Led a forensic audit of HRIS data access protocols to reduce downstream errors and identify security vulnerabilities.</li>
-                        <li>Presented data-driven compliance mitigation strategies directly to senior management.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-8 border border-slate-300 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-slate-400"></div>
-                    <h3 class="text-xl font-bold text-slate-900">ERP Business Process Analyst II</h3>
-                    <p class="text-sm font-semibold text-teal-700 mt-1 mb-4">City of Albuquerque | Sept 2024 – Dec 2025</p>
-                    <ul class="list-disc list-inside text-slate-700 text-sm space-y-2">
-                        <li>Re-engineered workflows and diagnosed complex production errors to achieve zero downtime during critical patching cycles.</li>
-                        <li>Ensured operational integrity for the municipal PeopleSoft ELM and Travel & Expense transformation over a 15-month engagement.</li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-8">Frameworks & Methodologies</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-slate-50 p-4 border border-slate-200">
-                    <h4 class="font-bold text-slate-800 mb-2">Process Optimization</h4>
-                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
-                        <li>Lean Six Sigma (SSYB)</li>
-                        <li>Lean Six Sigma White Belt</li>
-                        <li>Business Process Re-engineering (BPR)</li>
-                    </ul>
-                </div>
-                <div class="bg-slate-50 p-4 border border-slate-200">
-                    <h4 class="font-bold text-slate-800 mb-2">Governance & Strategy</h4>
-                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
-                        <li>OKR Frameworks with AI Certified</li>
-                        <li>Change Management</li>
-                        <li>Operational Maturity Modeling</li>
-                    </ul>
+                <div class="ccm-dashboard">
+                    <div class="ccm-header">
+                        <div>> EXECUTING AUDIT_RUN_9904</div>
+                        <div>TIMESTAMP: 2026-10-05T15:58:00Z</div>
+                    </div>
+                    <div class="ccm-row" style="color: #94a3b8; font-weight: bold; border-bottom: 2px solid #475569;">
+                        <div>CTRL_ID</div>
+                        <div>CONTROL_DESCRIPTION</div>
+                        <div>TEST_METHOD</div>
+                        <div>STATUS</div>
+                    </div>
+                    <div class="ccm-row">
+                        <div>IAM-01</div>
+                        <div>MFA enabled for all active admin console users</div>
+                        <div>API Polling (IdP Endpoint)</div>
+                        <div class="ccm-status-pass">[PASS] 100% Valid</div>
+                    </div>
+                    <div class="ccm-row">
+                        <div>HR-04</div>
+                        <div>Offboarded users revoked within 24h SLA</div>
+                        <div>Python Script (HRIS vs AD sync check)</div>
+                        <div class="ccm-status-pass">[PASS] 12/12 Verified</div>
+                    </div>
+                    <div class="ccm-row">
+                        <div>INF-02</div>
+                        <div>S3 Buckets block public access natively</div>
+                        <div>AWS Config Rule Evaluation</div>
+                        <div class="ccm-status-fail">[FAIL] 1 Exception</div>
+                    </div>
+                    <div class="ccm-row">
+                        <div>AI-11</div>
+                        <div>LLM prompt inputs logged for PII filtering</div>
+                        <div>Log parsing (/var/logs/ai-proxy)</div>
+                        <div class="ccm-status-pass">[PASS] Active</div>
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #334155; font-size: 0.8rem; color: #94a3b8;">
+                        > Webhook payload dispatched to Jira (Ticket SEC-889) for INF-02 failure.<br>
+                        > Evidence hash appended to immudb blockchain ledger.
+                    </div>
                 </div>
             </div>
-        </section>
-
-    </main>
+        </div>
+    </section>
+    
+    <section id="case-studies" style="background-color: var(--bg-card);">
+        <div class="container">
+            <h2 class="section-title">GRC & AI Governance Case Studies</h2>
+            <p class="section-subtitle">Real-world scenarios demonstrating risk reduction, framework implementation, and process engineering.</p>
+            <div class="case-study">
+                <div class="case-header">
+                    <div class="case-title">Enterprise AI Risk Management Framework (NIST AI RMF) Implementation</div>
+                    <span class="case-badge">AI Compliance & Governance</span>
+                </div>
+                <p>Designed and deployed an end-to-end AI governance architecture for evaluating third-party and internally built machine learning models prior to production release.</p>
+                <div class="case-grid">
+                    <div class="case-block"><h5>The Risk Challenge</h5><p>Business units were adopting generative AI tools rapidly without centralized oversight, exposing the organization to data leakage, IP risk, and unvetted algorithmic bias.</p></div>
+                    <div class="case-block"><h5>The Solution</h5><p>Created a standardized AI Model Intake process mapped to NIST AI RMF 1.0. Developed automated Python scripts to validate model cards, data provenance, and security controls.</p></div>
+                    <div class="case-block"><h5>Measurable Impact</h5><p>Reduced AI system review time from 3 weeks to 48 hours while achieving 100% visibility over deployed organizational models.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="copyrightYear"></span> Jaina McGregor. GRC Cybersecurity & AI Governance Automation.</p>
+        </div>
+    </footer>
+    <script>
+        function switchFlowState(state) {
+            document.getElementById('btn-manual').classList.remove('active');
+            document.getElementById('btn-auto').classList.remove('active');
+            document.getElementById('flow-manual').classList.remove('active');
+            document.getElementById('flow-auto').classList.remove('active');
+            if(state === 'manual') {
+                document.getElementById('btn-manual').classList.add('active');
+                document.getElementById('flow-manual').classList.add('active');
+            } else {
+                document.getElementById('btn-auto').classList.add('active');
+                document.getElementById('flow-auto').classList.add('active');
+            }
+        }
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
